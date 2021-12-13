@@ -1,6 +1,6 @@
-#' Run the IL22-response analyses
+#' IL22-response analyses
 #'
-#' Reproduces the IL22 response analyses used to generate XXX
+#' Reproduces the analyess related to cellular response to IL22
 #'
 #' @param data The final Seurat object produced by running the
 #'   \code{\link{process_data}} function
@@ -14,7 +14,7 @@
 #'   analysis between IL22+ and IL22- cells is repeated independently for each
 #'   cluster and the output is saved.
 #'
-#' @return This function returns the input Seurat object with IL22 response
+#' @return This function returns the input Seurat object with the IL22 response
 #'   score added to the metadata \code{col.name = "IL22_Module"}. Additionally,
 #'   2 output files are saved to the specified output directory: \itemize{\item
 #'   "DE_IL22.txt" is a table containing the IL22+ vs IL22- differential
@@ -28,22 +28,25 @@
 #' process_data() %>% il22_response()}
 
 il22_response <- function(data=NULL, output_dir="./"){
+
+  message("Running DGE (IL22+ vs IL22-), this may take awhile...")
   Seurat::Idents(data) <- "condition"
-  markers <- Seurat::FindMarkers(data, ident.1 = "IL22+", only.pos = F, logfc.threshold = 0)
+  markers <- Seurat::FindMarkers(data, ident.1 = "IL22+", only.pos = F, logfc.threshold = 0, verbose = F)
   markers <- tibble::rownames_to_column(markers, var="gene")
   markers <- cbind.data.frame(markers, "avg_expression"=Matrix::rowMeans(data@assays$SCT@data)[markers$gene])
   write.table(markers, paste0(output_dir,"DE_IL22.txt"), quote = F)
 
   # Per cluster differential expression between IL22+ and IL22-
-  Seurat::Idents(srat) <- "Final.IDS"
+  Seurat::Idents(data) <- "Final.IDS"
 
-  ids <- as.character(unique(Seurat::Idents(srat)))
+  message("Running DGE (IL22+ vs IL22-) per cell-type...")
+  ids <- as.character(unique(Seurat::Idents(data)))
   markers.clus <- list()
   for (cluster in 1:length(ids)){
-    srat.sub <- subset(srat, cells = Seurat::WhichCells(srat,idents = ids[cluster]))
+    srat.sub <- subset(data, cells = Seurat::WhichCells(data,idents = ids[cluster]))
     Seurat::Idents(srat.sub) <- "condition"
     markers.clus[[ids[cluster]]] <- Seurat::FindMarkers(srat.sub, ident.1 = "IL22+", ident.2 = "IL22-", only.pos=F,
-                                                        min.cells.group = 0)
+                                                        min.cells.group = 0, verbose=F)
   }
 
   markers.clus <- lapply(markers.clus, tibble::rownames_to_column, var = "gene")
@@ -51,6 +54,7 @@ il22_response <- function(data=NULL, output_dir="./"){
   write.table(dplyr::bind_rows(markers.clus, .id="cluster"), paste0(output_dir,"DE_IL22_perCluster.txt"), quote = F)
 
   # Make an IL22 induced score by taking the top 50 upregulated genes (by log2FC)
+  message("Calculating IL22 module score...")
   il22.genes <- markers %>% dplyr::top_n(n = 50, wt = avg_log2FC) %>% dplyr::pull(gene)
   il22.score <- testModuleScore(Seurat::GetAssayData(data), genes.list = list(il22.genes), uniqueOnly = F, ctrl.size = 100)
   srat <- Seurat::AddMetaData(data, metadata = il22.score, col.name = "IL22_Module")
