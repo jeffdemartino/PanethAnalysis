@@ -7,16 +7,15 @@
 \format{
 A list containing 2 sparse matrices (of type 'dgCMatrix') where rows are genes and cols are cells
 \describe{
-  \item{IL22+}
-  \item{IL22-}
-  ...
+\item{IL22+}{dgCMatrix with 33538 rows (features) and 1427 columns (cells)}
+\item{IL22-}{dgCMatrix with 33538 rows (features) and 2168 columns (cells)}
 }
 }
 \usage{
 raw_data
 }
 \description{
-A list containing the raw count data from CellRanger for each of the 2 culture conditons (IL22+ and IL22-)
+A list containing the raw count output data from CellRanger for each of the 2 culture conditions (IL22+ and IL22-)
 which were read into R using the \code{Seurat::Read10X(..., strip.suffix=T)} function call
 }
 \concept{data}

@@ -4,8 +4,12 @@
 \name{PanethAnalysis-package}
 \alias{PanethAnalysis}
 \alias{PanethAnalysis-package}
-\title{PanethAnalysis: What the Package Does (Title Case)}
+\title{PanethAnalysis: Analysis of single-cell RNA-sequencing data from He, G-W. and Lin, L., et al (2022) <X>}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+Data and functions to reproduce the single-cell RNA-seq data analysis from He, G-W. and Lin, L., et al (2022) <X>
+}
+\author{
+\strong{Maintainer}: Jeff DeMartino \email{jdemartino1@gmail.com} (\href{https://orcid.org/0000-0001-7366-4789}{ORCID})
+
 }
 \keyword{internal}
