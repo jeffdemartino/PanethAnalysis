@@ -7,20 +7,19 @@
 #' @param data_list Raw count data stored in
 #'   \code{\link{raw_data}}
 #'
-#' @details This function runs the following pre-processing steps on the input
+#' @details
+#'   This function runs the following pre-processing steps on the input
 #'   raw count data: \enumerate{ \item Gives cells from each condition unique
-#'   names so the count tables can be merged \item Compiles useful metadata
-#'   fields from the count tables, including: \itemize{\item Mitochondrial read
+#'   names so the count tables can be merged \item Compiles useful metadata fields
+#'   from the count tables, including: \itemize{\item Mitochondrial read
 #'   percentage \item Log2 transcript counts \item Log2 feature counts \item
 #'   Culture condition} \item Merges count matrices and metadata tables and
 #'   filters mitochondrial genes and \code{\link{stressed_cells}} \item Creates
 #'   the Seurat object (filtering features expressed in fewer than 3 cells) and
-#'   filters cells with \itemize{\item Fewer than 3000 transcripts \item More
-#'   than 60000 transcripts \item Mitochondrial transcript percentage greater
-#'   than 25\%}}
+#'   filters cells with \itemize{\item Fewer than 3000 transcripts \item More than
+#'   60000 transcripts \item Mitochondrial transcript percentage greater than 25\\% }}
 #'
-#' @return A filtered Seurat object which is ready for integration using
-#'   \code{\link{integrate_data}}
+#' @return A filtered Seurat object which is ready for integration using \code{\link{integrate_data}}
 #' @export
 #' @family data processing
 #'
@@ -82,7 +81,7 @@ preprocess_data <- function(data_list=PanethAnalysis::raw_data){
 #' Butler et al, 2019 }.
 #'
 #' @param data The output from \code{\link{preprocess_data}} which can
-#'   be directly fed in using the pipe operator \code{%>%}
+#'   be directly fed in using the pipe operator \code{\%>\%}
 #'
 #' @details Follows the steps documented in the Seurat vignette found
 #'   \href{https://satijalab.org/seurat/articles/integration_introduction.html#performing-integration-on-datasets-normalized-with-sctransform-1}{here}.
@@ -128,7 +127,7 @@ integrate_data <- function(data=NULL){
 #' Runs dimensional reduction, graph-based clustering and cluster annotation
 #'
 #' @param data The output from \code{\link{integrate_data}} which can
-#'   be directly fed in using the pipe operator \code{%>%}
+#'   be directly fed in using the pipe operator \code{\%>\%}
 #'
 #' @details This function runs the following data processing steps:
 #' \enumerate{\item Performs PCA by calling \code{\link[Seurat]{RunPCA}}

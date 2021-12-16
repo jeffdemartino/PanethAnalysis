@@ -18,7 +18,16 @@ This function runs the first pre-processing steps on the raw count data
 stored in \code{\link{raw_data}}
 }
 \details{
-
+This function runs the following pre-processing steps on the input
+raw count data: \enumerate{ \item Gives cells from each condition unique
+names so the count tables can be merged \item Compiles useful metadata fields
+from the count tables, including: \itemize{\item Mitochondrial read
+percentage \item Log2 transcript counts \item Log2 feature counts \item
+Culture condition} \item Merges count matrices and metadata tables and
+filters mitochondrial genes and \code{\link{stressed_cells}} \item Creates
+the Seurat object (filtering features expressed in fewer than 3 cells) and
+filters cells with \itemize{\item Fewer than 3000 transcripts \item More than
+60000 transcripts \item Mitochondrial transcript percentage greater than 25\\\% }}
 }
 \examples{
 \dontrun{

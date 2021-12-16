@@ -6,6 +6,10 @@
 \usage{
 integrate_data(data = NULL)
 }
+\arguments{
+\item{data}{The output from \code{\link{preprocess_data}} which can
+be directly fed in using the pipe operator \code{\%>\%}}
+}
 \value{
 An integrated Seurat object to be passed to \code{\link{process_data}}
 }
