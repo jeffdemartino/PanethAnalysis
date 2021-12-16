@@ -59,7 +59,7 @@ preprocess_data <- function(data_list=PanethAnalysis::raw_data){
   data_merged <- lapply(data_list, as.data.frame) %>% dplyr::bind_cols()
   meta_merged <- meta_list %>% dplyr::bind_rows()
 
-  # Remove mtiochondrial genes and stressed cells
+  # Remove mitochondrial genes and stressed cells
   data_merged <- data_merged[-grep(mito_pattern, rownames(data_merged)),]
   data_merged <- data_merged %>% dplyr::select(-PanethAnalysis::stressed_cells)
 
@@ -81,17 +81,17 @@ preprocess_data <- function(data_list=PanethAnalysis::raw_data){
 #' \href{https://www.cell.com/cell/fulltext/S0092-8674(19)30559-8}{ Stuart,
 #' Butler et al, 2019 }.
 #'
-#' @param data Refers to the output from \code{\link{preprocess_data}} which can
-#'   be directly fed in using pipes
+#' @param data The output from \code{\link{preprocess_data}} which can
+#'   be directly fed in using the pipe operator \code{%>%}
 #'
 #' @details Follows the steps documented in the Seurat vignette found
 #'   \href{https://satijalab.org/seurat/articles/integration_introduction.html#performing-integration-on-datasets-normalized-with-sctransform-1}{here}.
 #'   Briefly, \enumerate{ \item Calls \code{\link[Seurat]{SplitObject}} to
 #'   subset the object by condition and outputs to a list \item Calls the
 #'   function \code{\link[Seurat]{SCTransform}} to perform SCTransform
-#'   noramlization (described in \href{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1}{Hafemeister and Satija, 2019}) on the split objects
+#'   normalization (described in \href{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1}{Hafemeister and Satija, 2019}) on the split objects
 #'   \item Calls \code{\link[Seurat]{SelectIntegrationFeatures}} to select integration features (n = 3000)
-#'   \item Calls \code{\link[Seurat]{PrepSCTIntegration}} to run pre-integation checks
+#'   \item Calls \code{\link[Seurat]{PrepSCTIntegration}} to run pre-integration checks
 #'   \item Calls \code{\link[Seurat]{FindIntegrationAnchors}} to define integration anchors using the integration features selected above
 #'   \item Calls \code{\link[Seurat]{IntegrateData}} to perform the data final data integration}
 #'
@@ -127,8 +127,8 @@ integrate_data <- function(data=NULL){
 #'
 #' Runs dimensional reduction, graph-based clustering and cluster annotation
 #'
-#' @param data Refers to the output from \code{\link{integrate_data}} which can
-#'   be directly fed in using pipes
+#' @param data The output from \code{\link{integrate_data}} which can
+#'   be directly fed in using the pipe operator \code{%>%}
 #'
 #' @details This function runs the following data processing steps:
 #' \enumerate{\item Performs PCA by calling \code{\link[Seurat]{RunPCA}}
