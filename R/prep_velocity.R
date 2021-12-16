@@ -14,10 +14,10 @@
 #'
 #' @param object The final Seurat object produced by running the
 #'   \code{\link{process_data}} function
-#' @param output.dir Path to directory where output files should be saved
+#' @param output.dir Path to directory where output file should be saved
 #'   (default is ".")
 #'
-#' @return Doesn't return an object (only saves data to disk)
+#' @return Doesn't return an object (saves output to disk)
 #' @export
 #'
 #' @examples
