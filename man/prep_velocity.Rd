@@ -10,11 +10,11 @@ prep_velocity(object = NULL, output.dir = ".")
 \item{object}{The final Seurat object produced by running the
 \code{\link{process_data}} function}
 
-\item{output.dir}{Path to directory where output files should be saved
+\item{output.dir}{Path to directory where output file should be saved
 (default is ".")}
 }
 \value{
-Doesn't return an object (only saves data to disk)
+Doesn't return an object (saves output to disk)
 }
 \description{
 Prepares spliced/unspliced count data for analysis with scvelo

@@ -22,7 +22,7 @@ plot_il22(
 \item{figure}{ID of the figure to be reproduced. Accepted values are "2D",
 "S7B and "S7D" (See Details for description of figure panels)}
 
-\item{save}{Whether to save the specified plot as a pdf (default = FALSE)}
+\item{save}{Save the specified plot as a pdf? (default = FALSE)}
 
 \item{save.dir}{Path to the directory where the output plot should be saved
 (default = ".")}

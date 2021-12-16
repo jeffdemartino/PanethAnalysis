@@ -11,8 +11,7 @@ preprocess_data(data_list = PanethAnalysis::raw_data)
 \code{\link{raw_data}}}
 }
 \value{
-A filtered Seurat object which is ready for integration using
-\code{\link{integrate_data}}
+A filtered Seurat object which is ready for integration using \code{\link{integrate_data}}
 }
 \description{
 This function runs the first pre-processing steps on the raw count data

@@ -6,10 +6,6 @@
 \usage{
 process_data(data = NULL)
 }
-\arguments{
-\item{data}{Refers to the output from \code{\link{integrate_data}} which can
-be directly fed in using pipes}
-}
 \value{
 An integrated Seurat object for which PCA and UMAP have been computed as well as (annotated) graph-based clustering
 }

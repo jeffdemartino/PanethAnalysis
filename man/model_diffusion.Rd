@@ -7,7 +7,7 @@
 model_diffusion(data = NULL)
 }
 \arguments{
-\item{data}{Processed Seurat object; output from \code{\link{process_data}}}
+\item{data}{Processed Seurat object: output from \code{\link{process_data}}}
 }
 \value{
 A list of Seurat objects (per trajectory) which have DiffusionMaps

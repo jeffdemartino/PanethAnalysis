@@ -2,7 +2,7 @@
 % Please edit documentation in R/il22_response.R
 \name{il22_response}
 \alias{il22_response}
-\title{Run the IL22-response analyses}
+\title{IL22-response analyses}
 \usage{
 il22_response(data = NULL, output_dir = "./")
 }
@@ -14,7 +14,7 @@ il22_response(data = NULL, output_dir = "./")
 (default is "./")}
 }
 \value{
-This function returns the input Seurat object with IL22 response
+This function returns the input Seurat object with the IL22 response
 score added to the metadata \code{col.name = "IL22_Module"}. Additionally,
 2 output files are saved to the specified output directory: \itemize{\item
 "DE_IL22.txt" is a table containing the IL22+ vs IL22- differential
@@ -22,7 +22,7 @@ expression results \item "DE_IL22_perCluster.txt" is a table containing the
 IL22+ vs IL22- differential expression results \strong{PER CLUSTER}}
 }
 \description{
-Reproduces the IL22 response analyses used to generate XXX
+Reproduces the analyess related to cellular response to IL22
 }
 \details{
 This function first runs differential expression analysis between

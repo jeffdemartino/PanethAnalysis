@@ -6,10 +6,6 @@
 \usage{
 integrate_data(data = NULL)
 }
-\arguments{
-\item{data}{Refers to the output from \code{\link{preprocess_data}} which can
-be directly fed in using pipes}
-}
 \value{
 An integrated Seurat object to be passed to \code{\link{process_data}}
 }
@@ -25,9 +21,9 @@ Follows the steps documented in the Seurat vignette found
 Briefly, \enumerate{ \item Calls \code{\link[Seurat]{SplitObject}} to
 subset the object by condition and outputs to a list \item Calls the
 function \code{\link[Seurat]{SCTransform}} to perform SCTransform
-noramlization (described in \href{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1}{Hafemeister and Satija, 2019}) on the split objects
+normalization (described in \href{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1}{Hafemeister and Satija, 2019}) on the split objects
 \item Calls \code{\link[Seurat]{SelectIntegrationFeatures}} to select integration features (n = 3000)
-\item Calls \code{\link[Seurat]{PrepSCTIntegration}} to run pre-integation checks
+\item Calls \code{\link[Seurat]{PrepSCTIntegration}} to run pre-integration checks
 \item Calls \code{\link[Seurat]{FindIntegrationAnchors}} to define integration anchors using the integration features selected above
 \item Calls \code{\link[Seurat]{IntegrateData}} to perform the data final data integration}
 }
