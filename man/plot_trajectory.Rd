@@ -43,6 +43,8 @@ cell trajectories, colored by cell-type cluster}
 \examples{
 \dontrun{
 # Make each plot and save as pdf
-plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3B", save = T, save.dir = ".")
-plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3C", save = T, save.dir = ".")}
+plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
+                figure = "S3B", save = T, save.dir = ".")
+plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
+                figure = "S3C", save = T, save.dir = ".")}
 }

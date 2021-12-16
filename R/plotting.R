@@ -665,8 +665,10 @@ plot_il22 <- function(object=NULL, dge.output=NA, figure=NA, save=FALSE, save.di
 #' @examples
 #' \dontrun{
 #' # Make each plot and save as pdf
-#' plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3B", save = T, save.dir = ".")
-#' plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3C", save = T, save.dir = ".")}
+#' plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
+#'                 figure = "S3B", save = T, save.dir = ".")
+#' plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
+#'                 figure = "S3C", save = T, save.dir = ".")}
 
 plot_trajectory <- function(seurat.obj = NULL, slingshot.obj = NULL, figure = NA, save=FALSE, save.dir="."){
   # Check inputs
