@@ -1,10 +1,14 @@
 ---
 title: "Analysis overview"
-output: rmarkdown::html_vignette
+output: 
+  html_document:
+    theme: default
+    highlight: pygments
 vignette: >
   %\VignetteIndexEntry{Window functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
+author: 'Author: Jeff DeMartino'
 date: 'Compiled: `r Sys.Date()`'
 ---
 
@@ -13,14 +17,14 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "##",
   tidy = TRUE,
-  tidy.opts = list(blank = FALSE, width.cutoff = 80)
+  tidy.opts = list(blank = FALSE, width.cutoff = 95)
 )
 options(rmarkdown.html_vignette.check_title = FALSE) # Removed "-" from title in YAML, this silences the resulting warning
 ```
 
 ## Preface
 
-This vignette is a tutorial on how to reproduce the single-cell RNA-sequencing analysis described in *He and Lin, et al., 2022* <!--# Add final citation --> using the code and data contained in this R package. Please note, the purpose of these functions is to perform the analysis exactly as published, and they have therefore been coded **very rigidly**. As with any other R package, it can be loaded using the `library()` function:
+This vignette is a tutorial on how to reproduce the single-cell RNA-sequencing analysis described in *He and Lin, et al., 2022* [***(link when available)***]{.ul} using the code and data contained in this R package. Please note, the purpose of these functions is to perform the analysis exactly as published, and they have therefore been coded **very rigidly**. As with any other R package, it can be loaded using the `library()` function:
 
 ```{r setup}
 library(PanethAnalysis)
@@ -32,27 +36,43 @@ This section describes the origin and structure of the data contained within the
 
 ### 1.1 Raw count data
 
-For convenience, the raw count data used for the analysis has been attached to this package and can be inspected by calling `PanethAnalysis::raw_data`. As shown below, the dataset is structured as a list of 2 sparse matrices corresponding to sequencing results generated from cells cultured in either IL22+ or IL22- medium. Each matrix was produced by calling the Seurat function `Read10X(..., strip.suffix=T)` on the *"filtered_feature_bc_matrix"* directory which is generated as part of the output from CellRanger.
+For convenience, the raw count data used for the analysis has been attached to this package and can be inspected by calling `PanethAnalysis::raw_data`. As shown below, the data set is structured as a list of 2 sparse matrices, corresponding to sequencing results generated from cells cultured in either IL22+ or IL22- medium. Each matrix was produced by calling the Seurat function `Read10X(..., strip.suffix=T)` on the *"filtered_feature_bc_matrix"* directory, which is generated as part of the output from the CellRanger toolkit. These data are also accessible in the Gene Expression Omnibus under accession number [GSE189423](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189423) (per sample supplementary data).
 
-```{r, eval=TRUE}
+<details>
+
+<summary>
+
+`str(PanethAnalysis::raw_data)`
+
+</summary>
+
+```{r raw data, echo=FALSE}
 str(PanethAnalysis::raw_data, width = 80, strict.width = "wrap", max.level = 3)
 ```
 
-These data are also accessible in the Gene Expression Omnibus under accession number GSE189423 <!--# link when released -->.
+</details>
 
 ### 1.2 Spliced/un-spliced count data for RNA velocity
 
-The raw input data required to reproduce the RNA velocity analysis has also been included in this package and can be accessed by calling `PanethAnalysis::velocity_raw`. As shown below, the data is composed of a single Seurat object (containing data from both conditions) with "Assay" slots corresponding to the "Spliced", "Unspliced" and "Ambiguous" counts ("Spliced" replaces the "RNA" assay in the final object.
+The raw input data required to reproduce the RNA velocity analysis has also been included in this package and can be accessed by calling `PanethAnalysis::velocity_raw`. As shown below, the data set is composed of a single Seurat object (containing data from both conditions) with "Assay" slots corresponding to the "Spliced", "Unspliced" and "Ambiguous" counts ("Spliced" replaces the "RNA" assay in the final object). The production of this object was a multi-step process detailed in the following sub-sections.
 
-```{r, eval=TRUE}
-str(PanethAnalysis::velocity_raw, width = 80, strict.width = "wrap", max.level = 3)
+<details>
+
+<summary>
+
+`str(PanethAnalysis::velocity_raw)`
+
+</summary>
+
+```{r raw velocity, eval=TRUE, echo=FALSE}
+str(PanethAnalysis::velocity_raw, width = 80, strict.width = "wrap", max.level = 3, list.len = 23)
 ```
 
-The production of this object was a multi-step process detailed in the following sub-sections
+</details>
 
 #### 1.2.1 Classifying mapped reads
 
-For each sample, reads mapped by CellRanger were classified as "Spliced", "Unspliced" or "Ambiguous" using a command line script available as part of the [Velocyto](https://velocyto.org/velocyto.py/index.html) python library (see [here](https://velocyto.org/velocyto.py/tutorial/cli.html#run10x-run-on-10x-chromium-samples) for more detailed usage instructions). The required inputs for this script are the directory containing the output from CellRanger and the gtf file containing the transcriptome annotation used to map the reads. The output is a loom file containing the count information per read category.
+For each sample, reads mapped by CellRanger were classified as "Spliced", "Unspliced" or "Ambiguous" using a command line script available as part of the [Velocyto](https://velocyto.org/velocyto.py/index.html) python library (see [here](https://velocyto.org/velocyto.py/tutorial/cli.html#run10x-run-on-10x-chromium-samples) for more detailed usage instructions). The required inputs for this script are the directory containing the output from CellRanger and the GTF file containing the transcriptome annotation used to map the reads. The output is a loom file containing the count information per read category.
 
 ```{bash, eval=FALSE}
 # Sample bash command
@@ -89,25 +109,25 @@ DefaultAssay(final.object) <- "RNA"
 
 ### 1.3 Cells to exclude
 
-In a previous iteration of this analysis, a group of cells was identified which are defined by their high expression of stress-response genes and cluster independently from all other cells. We chose to exclude them from further analysis. The IDs corresponding to these cells (n = 37) are stored in `PanethAnalysis::stressed_cells`
+In a previous iteration of this analysis, a group of cells was identified that are defined by their high expression of stress-response genes and cluster independently from all other cells. We chose to exclude them from further analysis. The IDs corresponding to these cells (n = 37) are stored in `PanethAnalysis::stressed_cells`
 
-```{r,eval=TRUE}
+```{r stressed cells, eval=TRUE}
 str(PanethAnalysis::stressed_cells)
 ```
 
 ### 1.4 Cell-cycle genes
 
-A list of cell-cycle genes used for cell-cycle scoring and inference is stored in `PanethAnalysis::cc_genes`. This list can also be downloaded from the corresponding [Seurat vignette](https://satijalab.org/seurat/articles/cell_cycle_vignette.html), and is based on the findings from [Tirosh et al, 2015](https://pubmed.ncbi.nlm.nih.gov/26430063/). Genes [1:43] are S-phase specific and genes [44:97] are G2/M specific.
+A list of cell-cycle genes used for cell-cycle scoring is stored in `PanethAnalysis::cc_genes`. This list can also be downloaded from the corresponding [Seurat vignette](https://satijalab.org/seurat/articles/cell_cycle_vignette.html), and is based on the findings from [Tirosh et al, 2015](https://pubmed.ncbi.nlm.nih.gov/26430063/). Genes [1:43] are S-phase specific and genes [44:97] are G2/M specific.
 
-```{r,eval=TRUE}
+```{r cc genes, eval=TRUE}
 str(PanethAnalysis::cc_genes)
 ```
 
 ## 2 Data processing and clustering
 
-This section details the core data processing pipeline, which takes as input the raw count data and returns a Seurat object in which IL22+ and IL22- cells have been integrated, graph based clustering and cluster annotation have been performed and that contains PCA and UMAP projections. For convenience's sake, the code required to perform these steps has been wrapped in a group of 3 functions: `preprocess_data()`, `integrate_data()` and `process_data()`, each of which will be discussed in more detail in the following sections. To quickly reproduce the final object, the output from each step can be directly fed into the next function using pipes `%>%` (see below for an example).
+This section details the core data processing pipeline, which takes the raw count data as input and returns a Seurat object in which IL22+ and IL22- cells have been integrated, graph based clustering and cluster annotation have been performed, and that contains PCA and UMAP projections. For convenience's sake, the code required to perform these steps has been wrapped in a group of 3 functions: `preprocess_data()`, `integrate_data()` and `process_data()`, each of which will be discussed in more detail in the following sections. To quickly reproduce the final object, the output from each step can be directly fed into the subsequent function using the pipe operator `%>%` (see below for an example).
 
-```{r, eval=FALSE}
+```{r processing pipleine, eval=FALSE}
 preprocess_data() %>% integrate_data() %>% process_data() -> final.output
 ```
 
@@ -115,7 +135,7 @@ preprocess_data() %>% integrate_data() %>% process_data() -> final.output
 
 In this first step, performed by the function `preprocess_data()`, the raw count data is merged, filtered and converted into a Seurat object with useful metadata values attached. By default, this function reads the raw count data stored in `PanethAnalysis::raw_data`, so no arguments need to be passed when it's called. The precise actions performed by this function are as follows:
 
-1.  Condition values (IL22+ or IL22-) are appended to the cell barcodes to produce unique cell ID's (required to merge)
+1.  Condition strings (IL22+ or IL22-) are appended to the cell barcodes to produce unique cell ID's (required to merge)
 
 2.  Useful metadata values are calculated, including:
 
@@ -129,7 +149,7 @@ In this first step, performed by the function `preprocess_data()`, the raw count
 
 4.  Mitochondrial transcripts are removed, as well as the "stressed" cells (see [1.3 Cells to exclude])
 
-5.  A Seurat object is created (transcripts expressed in fewer than 3 cells are excluded at this point
+5.  A Seurat object is created (transcripts expressed in fewer than 3 cells are excluded at this point)
 
 6.  Low quality cells are filtered using the following cutoffs:
 
@@ -137,7 +157,7 @@ In this first step, performed by the function `preprocess_data()`, the raw count
 
     -   Percentage of mitochondrial transcripts \< 25%
 
-```{r, preprocess, eval=TRUE}
+```{r, preprocess, eval=TRUE, cache=TRUE}
 step1.output <- preprocess_data()
 ```
 
@@ -147,17 +167,17 @@ gc(verbose=FALSE)
 
 ### 2.2 Data integration
 
-To enable the joint analysis of cells cultured under different conditions, we now perform data integration on the filtered Seurat object by calling `integrate_data()`. This function combines the steps described in detail in the [Seurat vignette on SCT-based data integration](https://satijalab.org/seurat/articles/integration_introduction.html#performing-integration-on-datasets-normalized-with-sctransform-1) (see also [Stuart and Butler et al, 2019](https://www.cell.com/cell/fulltext/S0092-8674(19)30559-8)). Briefly, the steps performed include:
+To enable the joint analysis of cells cultured under different conditions, we now perform data integration on the filtered Seurat object by calling `integrate_data()`. This function combines the steps described in detail in the [Seurat vignette on SCT-normalized data integration](https://satijalab.org/seurat/articles/integration_introduction.html#performing-integration-on-datasets-normalized-with-sctransform-1) (see also [Stuart and Butler et al, 2019](https://www.cell.com/cell/fulltext/S0092-8674(19)30559-8)). Briefly, the steps performed include:
 
-1.  Splitting the object per condition (IL22+ and IL22-) and performing normalization on each. As alluded to above, we used SCTransform normalization (see [Hafemeister and Satija, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1) for more details on this method) by calling the function `Seurat::SCTransform()`, using the default parameters.
+1.  Splitting the object per condition (IL22+ and IL22-) and applying normalization to each. As alluded to above, we used SCTransform normalization (see [Hafemeister and Satija, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1) for more details on this method) by calling the function `Seurat::SCTransform()`, using the default parameters.
 
-2.  Defining preparing the genes (n=3000) to be integrated by calling `Seurat::SelectIntegrationFeatures()` and `Seurat::PrepSCTIntegration()`
+2.  Defining and preparing the genes (n=3000) to be integrated by calling `Seurat::SelectIntegrationFeatures()` and `Seurat::PrepSCTIntegration()`
 
 3.  Selecting and refining the integration anchors by calling `Seurat::FindIntegrationAnchors()`
 
 4.  Performing the final data integration by calling `Seurat::IntegrateData()` and returning the resulting Seurat object as output
 
-```{r, integrate,eval=TRUE,R.options=list(future.globals.maxSize=1000 * 1024^2)}
+```{r, integrate,eval=TRUE,R.options=list(future.globals.maxSize=1000 * 1024^2), cache=TRUE}
 step2.output <- integrate_data(data=step1.output)
 ```
 
@@ -167,9 +187,9 @@ rm(step1.output); gc(verbose=FALSE)
 
 ### 2.3 Process data
 
-Now that the data has been integrated across conditions, we perform some basic processing and analysis operations by calling `process_data()`. The specific steps are detailed in the next subsections.
+After the data has been integrated across conditions, we perform some basic processing and analysis operations by calling `process_data()`. The specific steps are detailed in the following subsections.
 
-```{r, eval=TRUE}
+```{r, eval=TRUE, cache=TRUE}
 final.output <- process_data(data=step2.output)
 ```
 
@@ -179,9 +199,9 @@ rm(step2.output); gc(verbose=FALSE)
 
 #### 2.3.1 Dimensional reduction and graph-based clustering
 
-Here we perform a 2-step dimensional reduction followed by graph-based clustering. The specific steps include:
+First, we perform 2 dimensional reduction steps, followed by graph-based clustering. The specific steps include:
 
-1.  Running principal component analysis (PCA) on the integrated data by calling the function `Seurat::RunPCA(),` using the default parameters
+1.  Running principal component analysis (PCA) on the integrated data by calling the function `Seurat::RunPCA()`, using the default parameters
 
 2.  Performing uniform manifold approximation and projection (UMAP), using the first 25 integrated principal components as input, by calling `Seurat::RunUMAP()`
 
@@ -189,92 +209,152 @@ Here we perform a 2-step dimensional reduction followed by graph-based clusterin
 
 #### 2.3.2 Cell-cycle scoring
 
-Next, we infer the cell-cycle phase of each single cell by calling `Seurat::CellCycleScoring()`. As described [here](https://satijalab.org/seurat/articles/cell_cycle_vignette.html#assign-cell-cycle-scores-1), this function calculates G2/M and S-phase module scores using the gene list stored in `PanethAnalysis::cc_genes` and assigns each cell a discrete phase based on the results.
+Next, we infer the cell-cycle phase of each single cell by calling `Seurat::CellCycleScoring()`. As described [here](https://satijalab.org/seurat/articles/cell_cycle_vignette.html#assign-cell-cycle-scores-1), this function calculates G2/M and S-phase module scores using the gene list stored in `PanethAnalysis::cc_genes` and assigns each cell to a discrete phase based on the results.
 
-> **Module score:** A module score (see [Tirosh et al, 2016](https://www.science.org/doi/10.1126/science.aad0501?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)) is a numerical value representing (roughly) the expression, per cell, of a group of query genes (the "module"), compared to a set of control genes with similar average expression across the full data set. Therefore, cells with a high module score for a particular gene set have higher than average expression of the query genes, while a low (or negative) module score indicates lower than average expression of the module. <!--# Necessary? -->
+<!--#Module score: A module score (see Tirosh et al, 2016) is a numerical value representing (roughly) the expression, per cell, of a group of query genes (the "module"), compared to a set of control genes with similar average expression across the full data set. Therefore, cells with a high module score for a particular gene set have higher than average expression of the query genes, while a low (or negative) module score indicates lower than average expression of the module. -->
 
 #### 2.3.3 Cluster annotation
 
-Finally, we assign each cluster to a known cell type. In almost all cases, this was done through manual examination of differential gene expression analysis <!--# Add the results as output? --> per cluster. The exceptions to this are detailed below:
+Finally, we assign each cluster to a known cell type. In nearly all cases, this was done through manual examination of differential gene expression analysis <!--# Add the results as output? --> per cluster. The exceptions to this are detailed below:
 
 -   Mature Paneth and goblet cells (derived from a common progenitor) clustered together. Therefore, in order to distinguish the 2 cell types, we calculated a module score using Paneth-specific marker genes (DEFA5, DEFA6, PLA2G2A, PRSS2, REG3A and ITLN2) and classified cells with a score \> 1.5 as Paneth cells.
 
--   A small (n=6) group of cells expressing high levels of Tuft marker gene expression (e.g. AVIL) was distinguished using the `Seurat::FindSubCluster()` function on the secretory progenitor cluster (resolution=1, Leiden algorithm).
+-   A small (n=6) group of cells expressing high levels of Tuft marker genes (e.g. AVIL, ALOX5) was distinguished using the `Seurat::FindSubCluster()` function on the secretory progenitor cluster (resolution=1, Leiden algorithm).
 
-### 2.4 Output figure plots
+### 2.4 Output figure plots {.tabset}
 
-Using the final processed object as input, a number of the manuscript figure panels can be reproduced by calling `plot_processed()` and specifying which figure to plot using `figure=`. By default, the generated plots are sent to the active graphics device for visualization. The output plots can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to "."). The accepted figure IDs include: "1G", "1H", "2C", "S2A", "S2B", "S6A", "S6B" and "S7A". A description of each output figure can be found in the function documentation (`?plot_processed`).
+Using the final processed object as input, a number of the manuscript figure panels can be reproduced by calling `plot_processed()` and specifying which figure to plot with `figure=""`. By default, the generated plots are sent to the active graphics device for visualization. The output plots can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to "."). The accepted figure IDs include: "**1G**", "**1H**", "**2C**", "**S2A**", "**S2B**", "**S6A**", "**S6B**" and "**S7A**". A description of each output figure can be found in the function documentation (`?plot_processed`).
 
-```{r, eval=TRUE}
-# Plot all figures, save all plots as pdf files in the current working directory
+#### Figure 1G
 
+```{r figure 1g, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
 plot_processed(object = final.output, figure = "1G", save = F, save.dir = ".")
-#plot_processed(object = final.output, figure = "1H", save = F, save.dir = ".")
 ```
 
-```{r, eval=FALSE}
-#plot_processed(object = final.output, figure = "2C", save = T, save.dir = ".")
-#plot_processed(object = final.output, figure = "S2A", save = T, save.dir = ".")
-#plot_processed(object = final.output, figure = "S2B", save = T, save.dir = ".")
-#plot_processed(object = final.output, figure = "S6A", save = T, save.dir = ".")
-#plot_processed(object = final.output, figure = "S6B", save = T, save.dir = ".")
-#plot_processed(object = final.output, figure = "S7A", save = T, save.dir = ".")
+#### Figure 1H
+
+```{r figure 1h, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
+plot_processed(object = final.output, figure = "1H", save = F, save.dir = ".")
+```
+
+#### Figure 2C
+
+```{r figure 2c, fig.align='center', fig.height=6, fig.width=5, out.height="45%", out.width="45%"}
+plot_processed(object = final.output, figure = "2C", save = F, save.dir = ".")
+```
+
+#### Figure S2A
+
+```{r figure s2a, fig.align='center', fig.height=12, fig.width=12, out.height="60%", out.width="60%"}
+plot_processed(object = final.output, figure = "S2A", save = F, save.dir = ".")
+```
+
+#### Figure S2B
+
+```{r figure s2b, fig.align='center', fig.height=5, fig.width=12}
+plot_processed(object = final.output, figure = "S2B", save = F, save.dir = ".")
+```
+
+#### Figure S6A
+
+```{r figure s6a, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
+plot_processed(object = final.output, figure = "S6A", save = F, save.dir = ".")
+```
+
+#### Figure S6B
+
+```{r figure s6b, fig.align='center', fig.height=4, fig.width=10}
+plot_processed(object = final.output, figure = "S6B", save = F, save.dir = ".")
+```
+
+#### Figure S7A
+
+```{r figure s7a, fig.align='center', fig.height=3, fig.width=12}
+plot_processed(object = final.output, figure = "S7A", save = F, save.dir = ".")
 ```
 
 ## 3 Advanced analyses
 
-The output from the data processing and clustering pipeline is used as the input for functions carrying out more advanced analyses, as detailed below. These include the analysis of the cellular response to IL22, modelling the organoid differentiation trajectories and RNA velocity analysis.
+The output from the data processing and clustering pipeline is used as the input for functions carrying out advanced analyses, as detailed below. These include the analysis of the cellular response to IL22, modelling the organoid differentiation trajectories, and RNA velocity analysis.
 
 ### 3.1 IL22 response analysis
 
-The steps required to reproduce the analysis and figure panels related to the response to IL22 are wrapped in the function `il22_response()`. This function takes the processed Seurat object as input, and returns the same Seurat object with an IL22 induced module score included in the meta data, as well as writing the results of the differential gene-expression (DGE) analyses to disk. The `il22_response()` function performs 2 main steps:
+The steps required to reproduce the analysis and figure panels related to the IL22 response are wrapped in the function `il22_response()`. This function takes the processed Seurat object as input, and returns the same Seurat object with an IL22 induced module score included in the metadata, as well as saving the results of the differential gene-expression (DGE) analyses to disk. The function performs 2 main steps:
 
-1.  Runs the differential gene expression analysis, comparing IL22+ vs IL22- cells across the entire dataset, as well as per cell-type cluster. This is done by calling the `Seurat::FindMarkers()` function (Wilcoxon rank sum test). The output from each DGE analysis is saved to disk as *DE_IL22.txt* and *DE_IL22_perCluster.txt*, respectively (path can be specified using `il22_response(…, output_dir="./")`).
+1.  Runs the differential gene expression analysis, comparing IL22+ vs IL22- cells across the entire data set, as well as per cell-type cluster. This is done by calling the `Seurat::FindMarkers()` function (Wilcoxon rank sum test). The output from each DGE analysis is saved to disk as "*DE_IL22.txt"* and "*DE_IL22_perCluster.txt"*, respectively (path can be specified using `il22_response(…, output_dir="./")`).
 
-2.  Calculates an IL22 induced module score using the top 50 upregulated genes in the IL22+ condition (based on average log2 fold-change dataset-wide). This is stored in the output Seurat object's metadata slot under *"IL22_Module"* .
+2.  Calculates an IL22 induced module score using the top 50 up-regulated genes in the IL22+ condition (based on average log2 fold-change dataset-wide). This is stored in the output Seurat object's metadata slot under *"IL22_Module"* .
 
-```{r, eval=FALSE}
-il22.output.obj <- il22_response(data = final.output, output_dir = "./") #final.output generated in the previous section
+```{r cache=TRUE, eval=FALSE}
+il22.output.obj <- il22_response(data = final.output, output_dir = "./")
 ```
 
-#### 3.1.1 Output figure plots
+#### 3.1.1 Output figure plots {.tabset}
 
-The output from `il22_response()` can be used to re-produce the relevant figure panels using the `plot_il22()` function. The accepted figure IDs are: "2D", "S7B" and "S7D"; a description of each panel can be found in the function documentation (`?plot_il22`). When re-producing figure 2D, the DGE analysis output file (full dataset) from `il22_response()` (*DE_IL22.txt*) needs to be specified using `dge.output=`. As with the other plotting functions, the generated plots are sent to the active graphics device for visualization by default, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
+The output from `il22_response()` can be used to re-produce the relevant figure panels using the `plot_il22()` function. The accepted figure IDs are: "**2D**", "**S7B**" and "**S7D**"; a description of each panel can be found in the function documentation (`?plot_il22`). When re-producing figure 2D, the DGE analysis output file (full data set) from `il22_response()` ("*DE_IL22.txt"*) needs to be specified using `dge.output=`. As with the other plotting functions, the generated plots are sent by default to the active graphics device for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
 
-```{r,eval=FALSE}
-# Make each plot and save as pdf
-plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = T, save.dir = ".")
-plot_il22(object = il22.output.obj, figure = "S7B",  save = T, save.dir = ".")
-plot_il22(object = il22.output.obj, figure = "S7D",  save = T, save.dir = ".")
+##### Figure 2D
+
+```{r figure 2d, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%", eval=FALSE}
+plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
+```
+
+##### Figure S7B
+
+```{r figure s7b, fig.align='center', fig.height=6, fig.width=12,warning=FALSE,eval=FALSE}
+plot_il22(object = il22.output.obj, figure = "S7B",  save = F, save.dir = ".")
+```
+
+##### Figure S7D
+
+```{r figure s7d, fig.align='center', fig.height=7.2, fig.width=12, out.height="80%", out.width="80%", warning=FALSE, message=FALSE,eval=FALSE}
+plot_il22(object = il22.output.obj, figure = "S7D",  save = F, save.dir = ".")
 ```
 
 ### 3.2 Trajectory modelling
 
-```{r,eval=FALSE}
-diffusion.output <- model_diffusion(data = final.object) # Can also take il22.output.obj
+The steps required to reproduce the differentiation trajectory analyses are wrapped in the `model_diffusion()` and `model_slingshot()` functions. The `model_diffusion()` function takes the processed Seurat object as input and returns a list of (subsetted) Seurat objects corresponding to the 4 differentiation trajectories: stem cell, secretory, enterocyte and Paneth. For each trajectory, cells of interest are projected in DiffusionMaps space by calling the function `destiny::DiffusionMap()` (with default parameters), using the top 25 integrated principal components as input. The resulting eigenvectors are then stashed in the respective Seurat object as a new dimensional reduction ("dc"). The output from `model_diffusion()` can then be used as input for `model_slingshot()`, which applies the [slingshot algorithm](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4772-0) to each trajectory using the top 2 DiffusionMaps eigenvectors, respectively. The function then returns a list containing the slingshot output for each trajectory.
+
+```{r, cache=TRUE}
+diffusion.output <- model_diffusion(data = final.output)
 slingshot.output <- model_slingshot(data = diffusion.output)
 ```
 
-#### 3.2.1 Output figure plots
+#### 3.2.1 Output figure plots {.tabset}
 
-The outputs from `model_diffusion()` and `model_slingshot()` can be used to re-produce the relevant figure panels using the `plot_trajectory()` function. The accepted figure IDs are: "S3B" and "S3C"; a description of each panel can be found in the function documentation (`?plot_trajectory`). As with the other plotting functions, the generated plots are sent to the active graphics device for visualization by default, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
+The outputs from `model_diffusion()` and `model_slingshot()` can be used to re-produce the relevant figure panels using the `plot_trajectory()` function. The accepted figure IDs are: "**S3B**" and "**S3C**"; a description of each panel can be found in the function documentation (`?plot_trajectory`). As with the other plotting functions, the generated plots are sent to the active graphics device by default for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
 
-```{r,eval=FALSE}
-# Make each plot and save as pdf
-plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3B", save = T, save.dir = ".")
-plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3C", save = T, save.dir = ".")
+##### Figure S3B
+
+```{r figure s3b, fig.align='center', fig.height=6, fig.width=12}
+plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3B", save = F, save.dir = ".")
+```
+
+##### Figure S3C
+
+```{r figure s3c, fig.align='center', fig.height=5, fig.width=16}
+plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3C", save = F, save.dir = ".")
 ```
 
 ### 3.3 RNA velocity analysis
 
+The raw RNA velocity input data is bundled in this package as `PanethAnalysis::velocity_raw`, and a full description of its generation and structure can be found in the section [1.2 Spliced/un-spliced count data for RNA velocity]. The steps required to prepare the data for analysis using the [scVelo python package](https://scvelo.readthedocs.io/) are wrapped in the `prep_velocity()` function. This function takes the processed Seurat object as input and transfers the PCA and UMAP embeddings to the raw velocity data object (read internally). The raw velocity data is then subset to include only IL22+ cells, and exported as an h5ad file using the `SeuratDisk::SaveH5Seurat()` and `SeuratDisk::Convert()` functions (saved as "*srat_velo.h5ad*", path can be specified via `output.dir = ""`).
+
+```{r prep_velocity, eval=FALSE}
+prep_velocity(object = final.output, output.dir = ".") # doesn't return an object
+```
+
+After running `prep_velocity()`, the RNA velocity analysis can be reproduced along with Figure S3A by executing the following python code, based on the vignette found [here](https://scvelo.readthedocs.io/DynamicalModeling/).
+
+| **NOTE**: Installation instructions for scVelo can be found [here](https://scvelo.readthedocs.io/installation/).
+
 ```{python, eval=FALSE}
+# Python code
 import scvelo as scv
 import os
 import numpy as np
-```
 
-```{python, eval=FALSE}
-adata = scv.read("srat_velo.h5ad")
+adata = scv.read("srat_velo.h5ad") # output from prep_velocity()
 
 scv.pp.filter_and_normalize(adata, min_shared_counts=20, n_top_genes=2000)
 scv.pp.moments(adata, n_pcs=25, n_neighbors=30, use_rep="X_pca")
@@ -287,8 +367,22 @@ scv.pl.velocity_embedding_grid(adata, basis="umap",color="Final.IDS",arrow_size=
                                size=35,title="",save="Figure_S3A.pdf")
 ```
 
-## 4 Session info
+#### Figure S3A
+
+<center>
+
+![](images/scvelo_IL22+_velocity.png){width="600"}
+
+</center>
+
+<details>
+
+<summary>**Session Info**</summary>
 
 ```{r}
 sessionInfo()
 ```
+
+</details>
+
+<br>
