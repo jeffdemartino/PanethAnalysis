@@ -1,9 +1,8 @@
-
 #' Model trajectories using DiffusionMaps
 #'
 #' Subset cells per trajectory and project in DiffusionMaps space
 #'
-#' @param data Processed Seurat object; output from \code{\link{process_data}}
+#' @param data Processed Seurat object: output from \code{\link{process_data}}
 #'
 #' @details This function creates a list of subsetted Seurat objects (per
 #'   trajectory) and projects the first 25 integrated principal components for each object in
@@ -26,21 +25,25 @@
 #' slingshot.models <- model_slingshot(data=object.list)}
 
 model_diffusion <- function(data=NULL){
+  message("Running DiffusionMaps on secretory trajectory...")
   srat.secretory <- subset(data, cells=Seurat::WhichCells(data, idents = c("ISC","TA2","Secretory progenitor","Goblet","EEC","Tuft")))
   dif <- destiny::DiffusionMap(srat.secretory@reductions$pca@cell.embeddings[,1:25])
-  srat.secretory[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.secretory))
+  suppressWarnings(srat.secretory[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.secretory)))
 
+  message("Running DiffusionMaps on enterocyte trajectory...")
   srat.ec <- subset(data, cells=Seurat::WhichCells(data, idents = c("ISC","TA2","Early EC","EC")))
   dif <- destiny::DiffusionMap(srat.ec@reductions$pca@cell.embeddings[,1:25])
-  srat.ec[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.ec))
+  suppressWarnings(srat.ec[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.ec)))
 
+  message("Running DiffusionMaps on Paneth trajectory...")
   srat.pan <- subset(data, cells=Seurat::WhichCells(data, idents = c("ISC","TA2","Secretory progenitor","Paneth")))
   dif <- destiny::DiffusionMap(srat.pan@reductions$pca@cell.embeddings[,1:25])
-  srat.pan[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.pan))
+  suppressWarnings(srat.pan[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.pan)))
 
+  message("Running DiffusionMaps on stem trajectory...")
   srat.stem <- subset(data, cells=Seurat::WhichCells(data, idents = c("ISC","TA2","TA1")))
   dif <- destiny::DiffusionMap(srat.stem@reductions$pca@cell.embeddings[,1:25])
-  srat.stem[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.stem))
+  suppressWarnings(srat.stem[["dc"]] <- Seurat::CreateDimReducObject(embeddings = as.matrix(dif@eigenvectors), key = "DC", assay = Seurat::DefaultAssay(srat.stem)))
 
   srat.trajectories <- list("secretory"=srat.secretory,
                             "ec"=srat.ec,
@@ -48,8 +51,6 @@ model_diffusion <- function(data=NULL){
                             "stem"=srat.stem)
   return(srat.trajectories)
 }
-
-
 
 
 #' Infer trajectories using slingshot
@@ -83,6 +84,3 @@ model_slingshot <- function(data=NULL){
   names(sling) <- names(data)
   return(sling)
 }
-
-
-
