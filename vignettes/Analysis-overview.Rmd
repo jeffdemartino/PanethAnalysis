@@ -233,8 +233,8 @@ step2.output <- integrate_data(data = step1.output)
 **NOTE:** Should you receive the error below, you need to increase the size limit for global variables accessed by functions passed in the `future` package. This can be done by setting `options(future.globals.maxSize = 1000 * 1024^2)`, for example (1GB limit). Be aware that this will increase RAM usage, so use carefully. More information can be found [here](https://satijalab.org/seurat/articles/future_vignette.html).
 
 
-```undefined
-  The total size of the X globals that need to be exported for the future expression ('FUN()') is X GiB. This exceeds the maximum allowed size of 500.00 MiB (option 'future.globals.maxSize'). The X largest globals are ...
+```r
+"The total size of the X globals that need to be exported for the future expression ('FUN()') is X GiB. This exceeds the maximum allowed size of 500.00 MiB (option 'future.globals.maxSize'). The X largest globals are ..."
 ```
 
 ### 2.3 Process data
@@ -288,7 +288,7 @@ Using the final processed object as input, a number of the manuscript figure pan
 plot_processed(object = final.output, figure = "1G", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure 1g-1.png" title="plot of chunk figure 1g" alt="plot of chunk figure 1g" width="60%" height="60%" style="display: block; margin: auto;" />
+<img src="figure/figure_1g-1.png" title="plot of chunk figure_1g" alt="plot of chunk figure_1g" width="60%" height="60%" style="display: block; margin: auto;" />
 
 #### Figure 1H
 
@@ -297,7 +297,7 @@ plot_processed(object = final.output, figure = "1G", save = F, save.dir = ".")
 plot_processed(object = final.output, figure = "1H", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure 1h-1.png" title="plot of chunk figure 1h" alt="plot of chunk figure 1h" width="60%" height="60%" style="display: block; margin: auto;" />
+<img src="figure/figure_1h-1.png" title="plot of chunk figure_1h" alt="plot of chunk figure_1h" width="60%" height="60%" style="display: block; margin: auto;" />
 
 #### Figure 2C
 
@@ -306,7 +306,7 @@ plot_processed(object = final.output, figure = "1H", save = F, save.dir = ".")
 plot_processed(object = final.output, figure = "2C", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure 2c-1.png" title="plot of chunk figure 2c" alt="plot of chunk figure 2c" width="45%" height="45%" style="display: block; margin: auto;" />
+<img src="figure/figure_2c-1.png" title="plot of chunk figure_2c" alt="plot of chunk figure_2c" width="45%" height="45%" style="display: block; margin: auto;" />
 
 #### Figure S2A
 
@@ -315,7 +315,7 @@ plot_processed(object = final.output, figure = "2C", save = F, save.dir = ".")
 plot_processed(object = final.output, figure = "S2A", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s2a-1.png" title="plot of chunk figure s2a" alt="plot of chunk figure s2a" width="60%" height="60%" style="display: block; margin: auto;" />
+<img src="figure/figure_s2a-1.png" title="plot of chunk figure_s2a" alt="plot of chunk figure_s2a" width="60%" height="60%" style="display: block; margin: auto;" />
 
 #### Figure S2B
 
@@ -324,7 +324,7 @@ plot_processed(object = final.output, figure = "S2A", save = F, save.dir = ".")
 plot_processed(object = final.output, figure = "S2B", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s2b-1.png" title="plot of chunk figure s2b" alt="plot of chunk figure s2b" style="display: block; margin: auto;" />
+<img src="figure/figure_s2b-1.png" title="plot of chunk figure_s2b" alt="plot of chunk figure_s2b" style="display: block; margin: auto;" />
 
 #### Figure S6A
 
@@ -333,7 +333,7 @@ plot_processed(object = final.output, figure = "S2B", save = F, save.dir = ".")
 plot_processed(object = final.output, figure = "S6A", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s6a-1.png" title="plot of chunk figure s6a" alt="plot of chunk figure s6a" width="60%" height="60%" style="display: block; margin: auto;" />
+<img src="figure/figure_s6a-1.png" title="plot of chunk figure_s6a" alt="plot of chunk figure_s6a" width="60%" height="60%" style="display: block; margin: auto;" />
 
 #### Figure S6B
 
@@ -342,7 +342,7 @@ plot_processed(object = final.output, figure = "S6A", save = F, save.dir = ".")
 plot_processed(object = final.output, figure = "S6B", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s6b-1.png" title="plot of chunk figure s6b" alt="plot of chunk figure s6b" style="display: block; margin: auto;" />
+<img src="figure/figure_s6b-1.png" title="plot of chunk figure_s6b" alt="plot of chunk figure_s6b" style="display: block; margin: auto;" />
 
 #### Figure S7A
 
@@ -351,7 +351,7 @@ plot_processed(object = final.output, figure = "S6B", save = F, save.dir = ".")
 plot_processed(object = final.output, figure = "S7A", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s7a-1.png" title="plot of chunk figure s7a" alt="plot of chunk figure s7a" style="display: block; margin: auto;" />
+<img src="figure/figure_s7a-1.png" title="plot of chunk figure_s7a" alt="plot of chunk figure_s7a" style="display: block; margin: auto;" />
 
 ## 3 Advanced analyses
 
@@ -384,7 +384,7 @@ The output from `il22_response()` can be used to re-produce the relevant figure 
 plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure 2d-1.png" title="plot of chunk figure 2d" alt="plot of chunk figure 2d" width="70%" height="70%" style="display: block; margin: auto;" />
+<img src="figure/figure_2d-1.png" title="plot of chunk figure_2d" alt="plot of chunk figure_2d" width="70%" height="70%" style="display: block; margin: auto;" />
 
 ##### Figure S7B
 
@@ -393,7 +393,7 @@ plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", s
 plot_il22(object = il22.output.obj, figure = "S7B", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s7b-1.png" title="plot of chunk figure s7b" alt="plot of chunk figure s7b" style="display: block; margin: auto;" />
+<img src="figure/figure_s7b-1.png" title="plot of chunk figure_s7b" alt="plot of chunk figure_s7b" style="display: block; margin: auto;" />
 
 ##### Figure S7D
 
@@ -402,7 +402,7 @@ plot_il22(object = il22.output.obj, figure = "S7B", save = F, save.dir = ".")
 plot_il22(object = il22.output.obj, figure = "S7D", save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s7d-1.png" title="plot of chunk figure s7d" alt="plot of chunk figure s7d" width="80%" height="80%" style="display: block; margin: auto;" />
+<img src="figure/figure_s7d-1.png" title="plot of chunk figure_s7d" alt="plot of chunk figure_s7d" width="80%" height="80%" style="display: block; margin: auto;" />
 
 ### 3.2 Trajectory modelling
 
@@ -430,7 +430,7 @@ plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
     save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s3b-1.png" title="plot of chunk figure s3b" alt="plot of chunk figure s3b" style="display: block; margin: auto;" />
+<img src="figure/figure_s3b-1.png" title="plot of chunk figure_s3b" alt="plot of chunk figure_s3b" style="display: block; margin: auto;" />
 
 ##### Figure S3C
 
@@ -440,7 +440,7 @@ plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
     save = F, save.dir = ".")
 ```
 
-<img src="figure/figure s3c-1.png" title="plot of chunk figure s3c" alt="plot of chunk figure s3c" style="display: block; margin: auto;" />
+<img src="figure/figure_s3c-1.png" title="plot of chunk figure_s3c" alt="plot of chunk figure_s3c" style="display: block; margin: auto;" />
 
 ### 3.3 RNA velocity analysis
 
@@ -539,34 +539,34 @@ sessionInfo()
 ##  [97] lmtest_0.9-38               Matrix_1.3-4                carData_3.0-4               boot_1.3-28                
 ## [101] zoo_1.8-9                   base64enc_0.1-3             ggridges_0.5.3              processx_3.5.2             
 ## [105] png_0.1-7                   viridisLite_0.4.0           knn.covertree_1.0           bitops_1.0-7               
-## [109] KernSmooth_2.23-20          DelayedMatrixStats_1.14.0   stringr_1.4.0               slingshot_2.0.0            
-## [113] parallelly_1.26.1           jpeg_0.1-8.1                S4Vectors_0.30.0            scales_1.1.1               
-## [117] memoise_2.0.0               magrittr_2.0.1              plyr_1.8.6                  hexbin_1.28.2              
-## [121] ica_1.0-2                   zlibbioc_1.38.0             compiler_4.1.0              RColorBrewer_1.1-2         
-## [125] pcaMethods_1.84.0           fitdistrplus_1.1-5          covr_3.5.1                  cli_3.1.0                  
-## [129] XVector_0.32.0              listenv_0.8.0               patchwork_1.1.1             pbapply_1.4-3              
-## [133] ps_1.6.0                    htmlTable_2.2.1             formatR_1.11                Formula_1.2-4              
-## [137] ggplot.multistats_1.0.0     MASS_7.3-54                 mgcv_1.8-36                 tidyselect_1.1.1           
-## [141] stringi_1.6.2               forcats_0.5.1               highr_0.9                   yaml_2.2.1                 
-## [145] latticeExtra_0.6-29         ggrepel_0.9.1               grid_4.1.0                  sass_0.4.0                 
-## [149] tools_4.1.0                 future.apply_1.7.0          parallel_4.1.0              rio_0.5.27                 
-## [153] rstudioapi_0.13             foreign_0.8-81              gridExtra_2.3               smoother_1.1               
-## [157] farver_2.1.0                scatterplot3d_0.3-41        Rtsne_0.15                  digest_0.6.27              
-## [161] shiny_1.6.0                 Rcpp_1.0.7                  GenomicRanges_1.44.0        car_3.0-11                 
-## [165] later_1.2.0                 RcppAnnoy_0.0.18            httr_1.4.2                  colorspace_2.0-2           
-## [169] fs_1.5.0                    tensor_1.5                  ranger_0.12.1               reticulate_1.20            
-## [173] IRanges_2.26.0              splines_4.1.0               uwot_0.1.10                 spatstat.utils_2.2-0       
-## [177] sp_1.4-5                    plotly_4.9.4.1              sessioninfo_1.1.1           xtable_1.8-4               
-## [181] jsonlite_1.7.2              testthat_3.0.4              destiny_3.1.1               R6_2.5.0                   
-## [185] Hmisc_4.5-0                 pillar_1.6.1                htmltools_0.5.1.1           mime_0.11                  
-## [189] glue_1.4.2                  fastmap_1.1.0               lintr_2.0.1                 VIM_6.1.0                  
-## [193] DT_0.19                     class_7.3-19                codetools_0.2-18            pkgbuild_1.2.0             
-## [197] utf8_1.2.1                  lattice_0.20-44             bslib_0.2.5.1               spatstat.sparse_2.0-0      
-## [201] tibble_3.1.2                curl_4.3.2                  leiden_0.3.8                zip_2.2.0                  
-## [205] openxlsx_4.2.4              limma_3.48.1                roxygen2_7.1.1              survival_3.2-11            
-## [209] rmarkdown_2.9               desc_1.4.0                  munsell_0.5.0               e1071_1.7-7                
-## [213] GenomeInfoDbData_1.2.6      haven_2.4.1                 reshape2_1.4.4              gtable_0.3.0               
-## [217] spatstat.core_2.2-0         Seurat_4.0.3
+## [109] rcmdcheck_1.3.3             KernSmooth_2.23-20          DelayedMatrixStats_1.14.0   stringr_1.4.0              
+## [113] slingshot_2.0.0             parallelly_1.26.1           jpeg_0.1-8.1                S4Vectors_0.30.0           
+## [117] scales_1.1.1                memoise_2.0.0               magrittr_2.0.1              plyr_1.8.6                 
+## [121] hexbin_1.28.2               ica_1.0-2                   zlibbioc_1.38.0             compiler_4.1.0             
+## [125] RColorBrewer_1.1-2          pcaMethods_1.84.0           fitdistrplus_1.1-5          covr_3.5.1                 
+## [129] cli_3.1.0                   XVector_0.32.0              listenv_0.8.0               patchwork_1.1.1            
+## [133] pbapply_1.4-3               ps_1.6.0                    htmlTable_2.2.1             formatR_1.11               
+## [137] Formula_1.2-4               ggplot.multistats_1.0.0     MASS_7.3-54                 mgcv_1.8-36                
+## [141] tidyselect_1.1.1            stringi_1.6.2               forcats_0.5.1               highr_0.9                  
+## [145] yaml_2.2.1                  latticeExtra_0.6-29         ggrepel_0.9.1               grid_4.1.0                 
+## [149] sass_0.4.0                  tools_4.1.0                 xopen_1.0.0                 future.apply_1.7.0         
+## [153] parallel_4.1.0              rio_0.5.27                  rstudioapi_0.13             foreign_0.8-81             
+## [157] gridExtra_2.3               smoother_1.1                farver_2.1.0                scatterplot3d_0.3-41       
+## [161] Rtsne_0.15                  digest_0.6.27               shiny_1.6.0                 Rcpp_1.0.7                 
+## [165] GenomicRanges_1.44.0        car_3.0-11                  later_1.2.0                 RcppAnnoy_0.0.18           
+## [169] httr_1.4.2                  colorspace_2.0-2            fs_1.5.0                    tensor_1.5                 
+## [173] ranger_0.12.1               reticulate_1.20             IRanges_2.26.0              splines_4.1.0              
+## [177] uwot_0.1.10                 spatstat.utils_2.2-0        sp_1.4-5                    plotly_4.9.4.1             
+## [181] sessioninfo_1.1.1           xtable_1.8-4                jsonlite_1.7.2              testthat_3.0.4             
+## [185] destiny_3.1.1               R6_2.5.0                    Hmisc_4.5-0                 pillar_1.6.1               
+## [189] htmltools_0.5.1.1           mime_0.11                   glue_1.4.2                  fastmap_1.1.0              
+## [193] lintr_2.0.1                 VIM_6.1.0                   DT_0.19                     class_7.3-19               
+## [197] codetools_0.2-18            pkgbuild_1.2.0              utf8_1.2.1                  lattice_0.20-44            
+## [201] bslib_0.2.5.1               spatstat.sparse_2.0-0       tibble_3.1.2                curl_4.3.2                 
+## [205] leiden_0.3.8                zip_2.2.0                   openxlsx_4.2.4              limma_3.48.1               
+## [209] roxygen2_7.1.1              survival_3.2-11             rmarkdown_2.9               desc_1.4.0                 
+## [213] munsell_0.5.0               e1071_1.7-7                 GenomeInfoDbData_1.2.6      haven_2.4.1                
+## [217] reshape2_1.4.4              gtable_0.3.0                spatstat.core_2.2-0         Seurat_4.0.3
 ```
 
 </details>

@@ -19,8 +19,7 @@ knitr::opts_chunk$set(
   tidy = TRUE,
   tidy.opts = list(blank = FALSE, width.cutoff = 95),
   dpi = 200,
-  dev = "CairoPNG",
-  fig.path = "vignette/figures/vignette-"
+  dev = "CairoPNG"
 )
 options(rmarkdown.html_vignette.check_title = FALSE) # Removed "-" from title in YAML, this silences the resulting warning
 ```
@@ -182,8 +181,8 @@ rm(step1.output); gc(verbose=FALSE)
 
 **NOTE:** Should you receive the error below, you need to increase the size limit for global variables accessed by functions passed in the `future` package. This can be done by setting `options(future.globals.maxSize = 1000 * 1024^2)`, for example (1GB limit). Be aware that this will increase RAM usage, so use carefully. More information can be found [here](https://satijalab.org/seurat/articles/future_vignette.html).
 
-```{undefined eval=FALSE}
-  The total size of the X globals that need to be exported for the future expression ('FUN()') is X GiB. This exceeds the maximum allowed size of 500.00 MiB (option 'future.globals.maxSize'). The X largest globals are ...
+```{r eval=FALSE}
+  "The total size of the X globals that need to be exported for the future expression ('FUN()') is X GiB. This exceeds the maximum allowed size of 500.00 MiB (option 'future.globals.maxSize'). The X largest globals are ..."
 ```
 
 ### 2.3 Process data
@@ -228,49 +227,49 @@ Using the final processed object as input, a number of the manuscript figure pan
 
 #### Figure 1G
 
-```{r figure 1g, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
+```{r figure_1g, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
 plot_processed(object = final.output, figure = "1G", save = F, save.dir = ".")
 ```
 
 #### Figure 1H
 
-```{r figure 1h, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
+```{r figure_1h, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
 plot_processed(object = final.output, figure = "1H", save = F, save.dir = ".")
 ```
 
 #### Figure 2C
 
-```{r figure 2c, fig.align='center', fig.height=6, fig.width=5, out.height="45%", out.width="45%"}
+```{r figure_2c, fig.align='center', fig.height=6, fig.width=5, out.height="45%", out.width="45%"}
 plot_processed(object = final.output, figure = "2C", save = F, save.dir = ".")
 ```
 
 #### Figure S2A
 
-```{r figure s2a, fig.align='center', fig.height=12, fig.width=12, out.height="60%", out.width="60%"}
+```{r figure_s2a, fig.align='center', fig.height=12, fig.width=12, out.height="60%", out.width="60%"}
 plot_processed(object = final.output, figure = "S2A", save = F, save.dir = ".")
 ```
 
 #### Figure S2B
 
-```{r figure s2b, fig.align='center', fig.height=5, fig.width=12}
+```{r figure_s2b, fig.align='center', fig.height=5, fig.width=12}
 plot_processed(object = final.output, figure = "S2B", save = F, save.dir = ".")
 ```
 
 #### Figure S6A
 
-```{r figure s6a, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
+```{r figure_s6a, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
 plot_processed(object = final.output, figure = "S6A", save = F, save.dir = ".")
 ```
 
 #### Figure S6B
 
-```{r figure s6b, fig.align='center', fig.height=4, fig.width=10}
+```{r figure_s6b, fig.align='center', fig.height=4, fig.width=10}
 plot_processed(object = final.output, figure = "S6B", save = F, save.dir = ".")
 ```
 
 #### Figure S7A
 
-```{r figure s7a, fig.align='center', fig.height=3, fig.width=12}
+```{r figure_s7a, fig.align='center', fig.height=3, fig.width=12}
 plot_processed(object = final.output, figure = "S7A", save = F, save.dir = ".")
 ```
 
@@ -296,19 +295,19 @@ The output from `il22_response()` can be used to re-produce the relevant figure 
 
 ##### Figure 2D
 
-```{r figure 2d, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%"}
+```{r figure_2d, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%"}
 plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
 ```
 
 ##### Figure S7B
 
-```{r figure s7b, fig.align='center', fig.height=6, fig.width=12,warning=FALSE}
+```{r figure_s7b, fig.align='center', fig.height=6, fig.width=12,warning=FALSE}
 plot_il22(object = il22.output.obj, figure = "S7B",  save = F, save.dir = ".")
 ```
 
 ##### Figure S7D
 
-```{r figure s7d, fig.align='center', fig.height=7.2, fig.width=12, out.height="80%", out.width="80%", warning=FALSE, message=FALSE}
+```{r figure_s7d, fig.align='center', fig.height=7.2, fig.width=12, out.height="80%", out.width="80%", warning=FALSE, message=FALSE}
 plot_il22(object = il22.output.obj, figure = "S7D",  save = F, save.dir = ".")
 ```
 
@@ -327,13 +326,13 @@ The outputs from `model_diffusion()` and `model_slingshot()` can be used to re-p
 
 ##### Figure S3B
 
-```{r figure s3b, fig.align='center', fig.height=6, fig.width=12}
+```{r figure_s3b, fig.align='center', fig.height=6, fig.width=12}
 plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3B", save = F, save.dir = ".")
 ```
 
 ##### Figure S3C
 
-```{r figure s3c, fig.align='center', fig.height=5, fig.width=16}
+```{r figure_s3c, fig.align='center', fig.height=5, fig.width=16}
 plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3C", save = F, save.dir = ".")
 ```
 
