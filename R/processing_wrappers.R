@@ -94,6 +94,18 @@ preprocess_data <- function(data_list=PanethAnalysis::raw_data){
 #'   \item Calls \code{\link[Seurat]{FindIntegrationAnchors}} to define integration anchors using the integration features selected above
 #'   \item Calls \code{\link[Seurat]{IntegrateData}} to perform the data final data integration}
 #'
+#' @section Note: Should you receive the error below, you need to increase the
+#'   size limit for global variables accessed by functions passed in the
+#'   \code{future} package. This can be done by setting
+#'   \code{options(future.globals.maxSize = 1000 * 1024^2)}, for example (1GB
+#'   limit). Be aware that this will increase RAM usage, so use carefully. More
+#'   information can be found
+#'   \href{https://satijalab.org/seurat/articles/future_vignette.html}{here}.
+#'
+#'   \code{The total size of the X globals that need to be exported for the
+#'   future expression ('FUN()') is X GiB. This exceeds the maximum allowed size
+#'   of 500.00 MiB (option 'future.globals.maxSize'). The X largest globals are
+#'   ... }
 #'
 #' @return An integrated Seurat object to be passed to \code{\link{process_data}}
 #' @export

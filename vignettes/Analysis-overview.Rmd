@@ -1,6 +1,6 @@
 ---
 title: "Analysis overview"
-output: 
+output:
   html_document:
     theme: default
     highlight: pygments
@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "##",
   tidy = TRUE,
-  tidy.opts = list(blank = FALSE, width.cutoff = 95)
+  tidy.opts = list(blank = FALSE, width.cutoff = 95),
+  eval = FALSE
 )
 options(rmarkdown.html_vignette.check_title = FALSE) # Removed "-" from title in YAML, this silences the resulting warning
 ```
@@ -86,10 +87,10 @@ object.list <- lapply(files, ReadVeloctiy)
 object.list <- lapply(object.list, as.Seurat)
 
 # Rename cells and merge objects
-object.list[[1]] <- RenameCells(object.list[[1]], 
+object.list[[1]] <- RenameCells(object.list[[1]],
                                 new.names=paste0(gsub(".*:(.+)x", "\\1", colnames(object.list[[1]])), "_IL22+"))
 
-object.list[[2]] <- RenameCells(object.list[[2]], 
+object.list[[2]] <- RenameCells(object.list[[2]],
                                 new.names=paste0(gsub(".*:(.+)x", "\\1", colnames(object.list[[2]])), "_IL22-"))
 
 final.object <- merge(object.list[[1]], object.list[[2]])
@@ -175,6 +176,12 @@ step2.output <- integrate_data(data=step1.output)
 
 ```{r, echo=FALSE, results='hide'}
 rm(step1.output); gc(verbose=FALSE)
+```
+
+**NOTE:** Should you receive the error below, you need to increase the size limit for global variables accessed by functions passed in the `future` package. This can be done by setting `options(future.globals.maxSize = 1000 * 1024^2)`, for example (1GB limit). Be aware that this will increase RAM usage, so use carefully. More information can be found [here](https://satijalab.org/seurat/articles/future_vignette.html).
+
+```{undefined eval=FALSE}
+  The total size of the X globals that need to be exported for the future expression ('FUN()') is X GiB. This exceeds the maximum allowed size of 500.00 MiB (option 'future.globals.maxSize'). The X largest globals are ... 
 ```
 
 ### 2.3 Process data
