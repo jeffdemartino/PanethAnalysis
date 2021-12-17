@@ -104,7 +104,7 @@ plot_processed <- function(object=NULL, figure=NA, save=FALSE, save.dir="."){
 
     # Take advantage of Seurat::DotPlot to return useful data
     data <- Seurat::DotPlot(subset(object, cells = Seurat::WhichCells(object, expression = condition == "IL22+")),
-                    features = highlights, assay = "SCT", group.by = 'Final.IDS')
+                    features = highlights, assay = "SCT", group.by = "Final.IDS")
     data <- data$data
     data$id <- factor(data$id, levels = rev(clust.order))
     data$features.plot <- factor(data$features.plot, levels = (highlights))

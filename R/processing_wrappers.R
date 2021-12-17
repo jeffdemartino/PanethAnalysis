@@ -8,16 +8,17 @@
 #'   \code{\link{raw_data}}
 #'
 #' @details
-#'   This function runs the following pre-processing steps on the input
-#'   raw count data: \enumerate{ \item Gives cells from each condition unique
-#'   names so the count tables can be merged \item Compiles useful metadata fields
+#'   This function runs the following pre-processing steps on the input raw
+#'   count data: \enumerate{ \item Gives cells from each condition unique names
+#'   so the count tables can be merged \item Compiles useful metadata fields
 #'   from the count tables, including: \itemize{\item Mitochondrial read
 #'   percentage \item Log2 transcript counts \item Log2 feature counts \item
 #'   Culture condition} \item Merges count matrices and metadata tables and
 #'   filters mitochondrial genes and \code{\link{stressed_cells}} \item Creates
 #'   the Seurat object (filtering features expressed in fewer than 3 cells) and
-#'   filters cells with \itemize{\item Fewer than 3000 transcripts \item More than
-#'   60000 transcripts \item Mitochondrial transcript percentage greater than 25\\% }}
+#'   filters cells with \itemize{\item Fewer than 3000 transcripts \item More
+#'   than 60000 transcripts \item Mitochondrial transcript percentage greater
+#'   than 25\\% }}
 #'
 #' @return A filtered Seurat object which is ready for integration using \code{\link{integrate_data}}
 #' @export
@@ -31,7 +32,7 @@ preprocess_data <- function(data_list=PanethAnalysis::raw_data){
   message("Reading data...")
 
   # Give cells unique names so they can be merged
-  for (table in 1:length(data_list)){
+  for (table in seq_along(PanethAnalysis::raw_data)){
     colnames(data_list[[table]]) <- paste0(colnames(data_list[[table]]),"_",gsub(".*_","",names(data_list)[table]))
   }
 
@@ -190,14 +191,14 @@ process_data <- function(data=NULL){
 
   # Rename clusters
   Seurat::Idents(srat) <- "integrated_snn_res.0.8"
-  new.ids <- plyr::mapvalues(Idents(srat), from = c(1,2,3,4,5,6,7,8,9,10,11,12),
-                       to = c("Early EC","EC","EC","TA2","ISC","Goblet","TA1","TA1","Secretory progenitor","TA1","TA1","EEC"))
+  new.ids <- plyr::mapvalues(Idents(srat), from = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+                       to = c("Early EC", "EC", "EC", "TA2", "ISC", "Goblet", "TA1", "TA1", "Secretory progenitor", "TA1", "TA1", "EEC"))
 
   Seurat::Idents(srat) <- new.ids
 
   # Select tuft cells (AVIL expressing)
   srat <- Seurat::FindSubCluster(srat, cluster = "Secretory progenitor", resolution = 1, algorithm = 4, graph.name = "integrated_snn")
-  Seurat::Idents(srat, cells=Seurat::WhichCells(srat, expression = sub.cluster =="Secretory progenitor_6")) <- "Tuft"
+  Seurat::Idents(srat, cells = Seurat::WhichCells(srat, expression = sub.cluster == "Secretory progenitor_6")) <- "Tuft"
 
   # Select Paneth cells
   Seurat::Idents(srat, cells = Seurat::WhichCells(srat, expression = Paneth_score > 1.5)) <- "Paneth"

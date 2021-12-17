@@ -68,5 +68,3 @@ il22_response <- function(data=NULL, output_dir="./"){
 
   return(srat)
 }
-
-
