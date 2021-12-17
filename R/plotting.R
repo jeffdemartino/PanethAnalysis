@@ -458,7 +458,8 @@ plot_processed <- function(object=NULL, figure=NA, save=FALSE, save.dir="."){
 #' @examples
 #' \dontrun{
 #' # Make each plot and save as pdf
-#' plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = T, save.dir = ".")
+#' plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt",
+#'           save = T, save.dir = ".")
 #' plot_il22(object = il22.output.obj, figure = "S7B",  save = T, save.dir = ".")
 #' plot_il22(object = il22.output.obj, figure = "S7D",  save = T, save.dir = ".")}
 plot_il22 <- function(object=NULL, dge.output=NA, figure=NA, save=FALSE, save.dir="."){
