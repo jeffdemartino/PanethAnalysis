@@ -42,7 +42,7 @@ prep_velocity <- function(object=NULL, output.dir="."){
 
   message("Creating output file...")
   # Export as h5ad
-  SeuratDisk::SaveH5Seurat(velo, filename = paste0(output.dir,"//srat_velo.h5Seurat"))
-  SeuratDisk::Convert(paste0(output.dir,"//srat_velo.h5Seurat"), dest = "h5ad")
+  SeuratDisk::SaveH5Seurat(velo, filename = paste0(output.dir,"//srat_velo.h5Seurat"), verbose = FALSE)
+  SeuratDisk::Convert(paste0(output.dir,"//srat_velo.h5Seurat"), dest = "h5ad", verbose = FALSE)
   file.remove(paste0(output.dir,"//srat_velo.h5Seurat"))
 }
