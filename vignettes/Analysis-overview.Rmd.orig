@@ -15,11 +15,12 @@ date: 'Compiled: `r Sys.Date()`'
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = "##",
   tidy = TRUE,
   tidy.opts = list(blank = FALSE, width.cutoff = 95),
   dpi = 200,
-  dev = "CairoPNG"
+  dev = "CairoPNG",
+  fig.path = "vignette/figures/vignette-"
 )
 options(rmarkdown.html_vignette.check_title = FALSE) # Removed "-" from title in YAML, this silences the resulting warning
 ```
@@ -88,11 +89,11 @@ object.list <- lapply(files, ReadVeloctiy)
 object.list <- lapply(object.list, as.Seurat)
 
 # Rename cells and merge objects
-object.list[[1]] <- RenameCells(object.list[[1]],
-                                new.names=paste0(gsub(".*:(.+)x", "\\1", colnames(object.list[[1]])), "_IL22+"))
+object.list[[1]] <- RenameCells(object.list[[1]], new.names=paste0(gsub(".*:(.+)x", "\\1",
+                                                                   colnames(object.list[[1]])), "_IL22+"))
 
-object.list[[2]] <- RenameCells(object.list[[2]],
-                                new.names=paste0(gsub(".*:(.+)x", "\\1", colnames(object.list[[2]])), "_IL22-"))
+object.list[[2]] <- RenameCells(object.list[[2]], new.names=paste0(gsub(".*:(.+)x", "\\1",
+                                                                   colnames(object.list[[2]])), "_IL22-"))
 
 final.object <- merge(object.list[[1]], object.list[[2]])
 
