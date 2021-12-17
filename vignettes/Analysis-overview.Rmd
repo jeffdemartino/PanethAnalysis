@@ -40,11 +40,7 @@ For convenience, the raw count data used for the analysis has been attached to t
 
 <details>
 
-<summary>
-
-`str(PanethAnalysis::raw_data)`
-
-</summary>
+<summary>`str(PanethAnalysis::raw_data)`</summary>
 
 ```{r raw data, echo=FALSE}
 str(PanethAnalysis::raw_data, width = 80, strict.width = "wrap", max.level = 3)
@@ -58,13 +54,9 @@ The raw input data required to reproduce the RNA velocity analysis has also been
 
 <details>
 
-<summary>
+<summary>`str(PanethAnalysis::velocity_raw)`</summary>
 
-`str(PanethAnalysis::velocity_raw)`
-
-</summary>
-
-```{r raw velocity, eval=TRUE, echo=FALSE}
+```{r raw velocity, echo=FALSE}
 str(PanethAnalysis::velocity_raw, width = 80, strict.width = "wrap", max.level = 3, list.len = 23)
 ```
 
@@ -111,7 +103,7 @@ DefaultAssay(final.object) <- "RNA"
 
 In a previous iteration of this analysis, a group of cells was identified that are defined by their high expression of stress-response genes and cluster independently from all other cells. We chose to exclude them from further analysis. The IDs corresponding to these cells (n = 37) are stored in `PanethAnalysis::stressed_cells`
 
-```{r stressed cells, eval=TRUE}
+```{r stressed cells}
 str(PanethAnalysis::stressed_cells)
 ```
 
@@ -119,7 +111,7 @@ str(PanethAnalysis::stressed_cells)
 
 A list of cell-cycle genes used for cell-cycle scoring is stored in `PanethAnalysis::cc_genes`. This list can also be downloaded from the corresponding [Seurat vignette](https://satijalab.org/seurat/articles/cell_cycle_vignette.html), and is based on the findings from [Tirosh et al, 2015](https://pubmed.ncbi.nlm.nih.gov/26430063/). Genes [1:43] are S-phase specific and genes [44:97] are G2/M specific.
 
-```{r cc genes, eval=TRUE}
+```{r cc genes}
 str(PanethAnalysis::cc_genes)
 ```
 
@@ -157,7 +149,7 @@ In this first step, performed by the function `preprocess_data()`, the raw count
 
     -   Percentage of mitochondrial transcripts \< 25%
 
-```{r, preprocess, eval=TRUE, cache=TRUE}
+```{r, preprocess}
 step1.output <- preprocess_data()
 ```
 
@@ -177,7 +169,7 @@ To enable the joint analysis of cells cultured under different conditions, we no
 
 4.  Performing the final data integration by calling `Seurat::IntegrateData()` and returning the resulting Seurat object as output
 
-```{r, integrate,eval=TRUE,R.options=list(future.globals.maxSize=1000 * 1024^2), cache=TRUE}
+```{r, integrate,R.options=list(future.globals.maxSize=1000 * 1024^2)}
 step2.output <- integrate_data(data=step1.output)
 ```
 
@@ -189,7 +181,7 @@ rm(step1.output); gc(verbose=FALSE)
 
 After the data has been integrated across conditions, we perform some basic processing and analysis operations by calling `process_data()`. The specific steps are detailed in the following subsections.
 
-```{r, eval=TRUE, cache=TRUE}
+```{r process data}
 final.output <- process_data(data=step2.output)
 ```
 
@@ -285,7 +277,7 @@ The steps required to reproduce the analysis and figure panels related to the IL
 
 2.  Calculates an IL22 induced module score using the top 50 up-regulated genes in the IL22+ condition (based on average log2 fold-change dataset-wide). This is stored in the output Seurat object's metadata slot under *"IL22_Module"* .
 
-```{r cache=TRUE, eval=FALSE}
+```{r il22 response}
 il22.output.obj <- il22_response(data = final.output, output_dir = "./")
 ```
 
@@ -295,7 +287,7 @@ The output from `il22_response()` can be used to re-produce the relevant figure 
 
 ##### Figure 2D
 
-```{r figure 2d, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%", eval=FALSE}
+```{r figure 2d, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%"}
 plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
 ```
 
@@ -315,7 +307,7 @@ plot_il22(object = il22.output.obj, figure = "S7D",  save = F, save.dir = ".")
 
 The steps required to reproduce the differentiation trajectory analyses are wrapped in the `model_diffusion()` and `model_slingshot()` functions. The `model_diffusion()` function takes the processed Seurat object as input and returns a list of (subsetted) Seurat objects corresponding to the 4 differentiation trajectories: stem cell, secretory, enterocyte and Paneth. For each trajectory, cells of interest are projected in DiffusionMaps space by calling the function `destiny::DiffusionMap()` (with default parameters), using the top 25 integrated principal components as input. The resulting eigenvectors are then stashed in the respective Seurat object as a new dimensional reduction ("dc"). The output from `model_diffusion()` can then be used as input for `model_slingshot()`, which applies the [slingshot algorithm](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4772-0) to each trajectory using the top 2 DiffusionMaps eigenvectors, respectively. The function then returns a list containing the slingshot output for each trajectory.
 
-```{r, cache=TRUE}
+```{r trajectory}
 diffusion.output <- model_diffusion(data = final.output)
 slingshot.output <- model_slingshot(data = diffusion.output)
 ```
@@ -340,7 +332,7 @@ plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
 
 The raw RNA velocity input data is bundled in this package as `PanethAnalysis::velocity_raw`, and a full description of its generation and structure can be found in the section [1.2 Spliced/un-spliced count data for RNA velocity]. The steps required to prepare the data for analysis using the [scVelo python package](https://scvelo.readthedocs.io/) are wrapped in the `prep_velocity()` function. This function takes the processed Seurat object as input and transfers the PCA and UMAP embeddings to the raw velocity data object (read internally). The raw velocity data is then subset to include only IL22+ cells, and exported as an h5ad file using the `SeuratDisk::SaveH5Seurat()` and `SeuratDisk::Convert()` functions (saved as "*srat_velo.h5ad*", path can be specified via `output.dir = ""`).
 
-```{r prep_velocity, eval=FALSE}
+```{r prep_velocity}
 prep_velocity(object = final.output, output.dir = ".") # doesn't return an object
 ```
 
