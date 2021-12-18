@@ -178,7 +178,9 @@ rm(step1.output); gc(verbose=FALSE)
 **NOTE:** Should you receive the error below, you need to increase the size limit for global variables accessed by functions passed in the `future` package. This can be done by setting `options(future.globals.maxSize = 1000 * 1024^2)`, for example (1GB limit). Be aware that this will increase RAM usage, so use carefully. More information can be found [here](https://satijalab.org/seurat/articles/future_vignette.html).
 
 ```{r eval=FALSE}
-  "The total size of the X globals that need to be exported for the future expression ('FUN()') is X GiB. This exceeds the maximum allowed size of 500.00 MiB (option 'future.globals.maxSize'). The X largest globals are ..."
+  "The total size of the X globals that need to be exported for the future expression ('FUN()') is X GiB.
+   This exceeds the maximum allowed size of 500.00 MiB (option 'future.globals.maxSize').
+   The X largest globals are ..."
 ```
 
 ### 2.3 Process data
@@ -311,7 +313,7 @@ plot_il22(object = il22.output.obj, figure = "S7D",  save = F, save.dir = ".")
 
 The steps required to reproduce the differentiation trajectory analyses are wrapped in the `model_diffusion()` and `model_slingshot()` functions. The `model_diffusion()` function takes the processed Seurat object as input and returns a list of (subsetted) Seurat objects corresponding to the 4 differentiation trajectories: stem cell, secretory, enterocyte and Paneth. For each trajectory, cells of interest are projected in DiffusionMaps space by calling the function `destiny::DiffusionMap()` (with default parameters), using the top 25 integrated principal components as input. The resulting eigenvectors are then stashed in the respective Seurat object as a new dimensional reduction ("dc"). The output from `model_diffusion()` can then be used as input for `model_slingshot()`, which applies the [slingshot algorithm](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4772-0) to each trajectory using the top 2 DiffusionMaps eigenvectors, respectively. The function then returns a list containing the slingshot output for each trajectory.
 
-```{r trajectory}
+```{r trajectory, results = "hold"}
 diffusion.output <- model_diffusion(data = final.output)
 slingshot.output <- model_slingshot(data = diffusion.output)
 ```
