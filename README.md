@@ -12,10 +12,15 @@
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+![GitHub tag (latest by
+date)](https://img.shields.io/github/v/tag/jeffdemartino/PanethAnalysis)
 
 <!-- badges: end -->
 
-The goal of PanethAnalysis is to …
+The `PanethAnalysis` package provides the data and wrapper functions
+required to reproduce the analyses from our publication “Optimal human
+intestinal organoid model reveals interleukin-22 induced Paneth cell
+differentiation”.
 
 ## Installation
 
@@ -26,3 +31,25 @@ You can install the development version of PanethAnalysis from
 # install.packages("devtools")
 devtools::install_github("jeffdemartino/PanethAnalysis", build_vignettes = TRUE)
 ```
+
+Be sure to build the vignette upon installation (by invoking
+`build_vignettes = TRUE`, as shown above) so the usage guide is made
+available. Note that for the sake of convenience, the time/memory
+intensive steps have been pre-computed (see
+[here](https://ropensci.org/blog/2019/12/08/precompute-vignettes/) for
+more details on how to replicate this).
+
+As of this version (v0.1.0), all the required data sets are bundled in
+this package (&gt;200MB). This may change in the future when the data is
+made publicly available post-publication.
+
+## Usage
+
+The guide for using this package (i.e. reproducing the data analyses and
+figure panels) is available as a package vignette, which can be accessed
+by calling `browseVignettes("PanethAnalysis")` and selecting the HTML
+file.
+
+## Citation
+
+XXX
