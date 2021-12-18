@@ -33,9 +33,12 @@ Imports:
     ggrepel,
     patchwork,
     purrr,
-    tibble,
-    viridis
-Suggests: 
     rmarkdown,
-    knitr
+    tibble,
+    viridis,
+    leiden (>= 0.3.1),
+    DelayedMatrixStats
+Suggests: 
+    knitr,
+    limma
 VignetteBuilder: knitr
