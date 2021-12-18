@@ -24,7 +24,21 @@ differentiation”.
 
 ## Installation
 
-You can install the development version of PanethAnalysis from
+The following non-CRAN dependencies need to be installed prior to
+PanethAnalysis:
+
+``` r
+# Bioconductor: DelayedMatrixStats, limma, destiny, slingshot
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install(c("DelayedMatrixStats", "limma", "destiny", "slingshot"))
+
+# Github: SeuratWrappers
+devtools::install_github('satijalab/seurat-wrappers')
+```
+
+You can then install the development version of PanethAnalysis from
 [GitHub](https://github.com/) with:
 
 ``` r
