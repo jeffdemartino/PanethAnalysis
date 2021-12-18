@@ -45,7 +45,8 @@ IL22= media (per cell-type cluster)}
 \examples{
 \dontrun{
 # Make each plot and save as pdf
-plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = T, save.dir = ".")
+plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt",
+          save = T, save.dir = ".")
 plot_il22(object = il22.output.obj, figure = "S7B",  save = T, save.dir = ".")
 plot_il22(object = il22.output.obj, figure = "S7D",  save = T, save.dir = ".")}
 }
