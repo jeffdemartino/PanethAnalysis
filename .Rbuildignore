@@ -5,3 +5,5 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^vignettes/Analysis-overview\.Rmd\.orig$
+^doc$
+^Meta$
