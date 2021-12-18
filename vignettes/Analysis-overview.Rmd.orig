@@ -119,11 +119,7 @@ str(PanethAnalysis::cc_genes)
 
 ## 2 Data processing and clustering
 
-This section details the core data processing pipeline, which takes the raw count data as input and returns a Seurat object in which IL22+ and IL22- cells have been integrated, graph based clustering and cluster annotation have been performed, and that contains PCA and UMAP projections. For convenience's sake, the code required to perform these steps has been wrapped in a group of 3 functions: `preprocess_data()`, `integrate_data()` and `process_data()`, each of which will be discussed in more detail in the following sections. To quickly reproduce the final object, the output from each step can be directly fed into the subsequent function using the pipe operator `%>%` (see below for an example).
-
-```{r processing pipleine, eval=FALSE}
-preprocess_data() %>% integrate_data() %>% process_data() -> final.output
-```
+This section details the core data processing pipeline, which takes the raw count data as input and returns a Seurat object in which IL22+ and IL22- cells have been integrated, graph based clustering and cluster annotation have been performed, and that contains PCA and UMAP projections. For convenience's sake, the code required to perform these steps has been wrapped in a group of 3 functions: `preprocess_data()`, `integrate_data()` and `process_data()`, each of which will be discussed in more detail in the following sections. To quickly reproduce the final object, the output from each step can be directly fed into the subsequent function using the pipe operator `%>%`.
 
 ### 2.1 Pre-processing the data
 
@@ -371,7 +367,7 @@ scv.pl.velocity_embedding_grid(adata, basis="umap",color="Final.IDS",arrow_size=
 
 <center>
 
-![](images/scvelo_IL22+_velocity.png){width="600"}
+![](figure/scvelo_IL22+_velocity.png){width="600"}
 
 </center>
 
