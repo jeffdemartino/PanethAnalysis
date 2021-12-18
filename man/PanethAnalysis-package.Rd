@@ -4,9 +4,9 @@
 \name{PanethAnalysis-package}
 \alias{PanethAnalysis}
 \alias{PanethAnalysis-package}
-\title{PanethAnalysis: Analysis of single-cell RNA-sequencing data from He, G-W. and Lin, L., et al (2022) <X>}
+\title{PanethAnalysis: Analysis of single-cell RNA-sequencing data from He, G-W. and Lin, L., et al (2022) <XX>}
 \description{
-Data and functions to reproduce the single-cell RNA-seq data analysis from He, G-W. and Lin, L., et al (2022) <X>
+This package provides the data and wrapper functions required to reproduce the analyses from our publication "Optimal human intestinal organoid model reveals interleukin-22 induced Paneth cell differentiation".
 }
 \author{
 \strong{Maintainer}: Jeff DeMartino \email{jdemartino1@gmail.com} (\href{https://orcid.org/0000-0001-7366-4789}{ORCID})
