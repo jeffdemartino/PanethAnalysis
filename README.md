@@ -34,6 +34,9 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install(c("DelayedMatrixStats", "limma", "destiny", "slingshot"))
 
+if (!requireNamespace("devtools", quietly = TRUE))
+  install.packages("devtools")
+
 # Github: SeuratWrappers
 devtools::install_github('satijalab/seurat-wrappers')
 ```
@@ -42,7 +45,6 @@ You can then install the development version of PanethAnalysis from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
 devtools::install_github("jeffdemartino/PanethAnalysis", build_vignettes = TRUE)
 ```
 
