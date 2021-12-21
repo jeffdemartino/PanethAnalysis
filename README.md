@@ -34,10 +34,10 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install(c("DelayedMatrixStats", "limma", "destiny", "slingshot"))
 
+# Github: SeuratWrappers
 if (!requireNamespace("devtools", quietly = TRUE))
   install.packages("devtools")
 
-# Github: SeuratWrappers
 devtools::install_github('satijalab/seurat-wrappers')
 ```
 
