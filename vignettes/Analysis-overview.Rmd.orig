@@ -362,14 +362,14 @@ scv.pl.velocity_embedding_grid(adata, basis="umap",color="Final.IDS",arrow_size=
                                arrow_length=5,dpi=300,figsize=(10,10),alpha=1, arrow_color="dimgrey",
                               palette=["#006F3C","#CB157C","#33AD75","#254B95","#8b8c89",
                                        "#FFB60A","#AACEDC","#F7A085","#AF0C23","#76018D"],
-                               size=35,title="",save="Figure_S3A.pdf")
+                               size=35,title="",save="Extended_Data_Fig_4a.pdf")
 ```
 
 #### Figure S3A
 
 <center>
 
-![](figure/scvelo_IL22+_velocity.png){width="600"}
+![](figure/Extended_Data_Fig_4a.png){width="600"}
 
 </center>
 
