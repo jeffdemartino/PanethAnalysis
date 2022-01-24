@@ -456,7 +456,7 @@ plot_il22 <- function(object=NULL, dge.output=NA, figure=NA, save=FALSE, save.di
 
   data <- read.table(dge.output)
 
-  genes.highlight <- c("REG1A","DMBT1","REG1B","REG3A","OLFM4","REG3G","CD24","STAT3","XBP1","MMP7","PCK1","SI","PHGR1",
+  genes.highlight <- c("REG1A","DMBT1","REG1B","REG3A","CFI","MUC1","REG3G","CD24","STAT3","XBP1","MMP7","PCK1","SI","PHGR1",
                        "REG4")
   highlight <- data$gene
   highlight[!data$gene %in% genes.highlight] <- ""
