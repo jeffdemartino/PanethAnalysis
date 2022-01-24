@@ -221,7 +221,7 @@ Finally, we assign each cluster to a known cell type. In nearly all cases, this 
 
 ### 2.4 Output figure plots {.tabset}
 
-Using the final processed object as input, a number of the manuscript figure panels can be reproduced by calling `plot_processed()` and specifying which figure to plot with `figure=""`. By default, the generated plots are sent to the active graphics device for visualization. The output plots can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to "."). The accepted figure IDs include: "**1G**", "**1H**", "**2C**", "**ED_3A**", "**ED_3B**", "**ED_4D**" and "**ED_8B**". A description of each output figure can be found in the function documentation (`?plot_processed`).
+Using the final processed object as input, a number of the manuscript figure panels can be reproduced by calling `plot_processed()` and specifying which figure to plot with `figure=""`. By default, the generated plots are sent to the active graphics device for visualization. The output plots can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to "."). The accepted figure IDs include: "**1G**", "**2B**", "**2C**", "**ED_3A**", "**ED_3B**", "**ED_4D**" and "**ED_8B**". A description of each output figure can be found in the function documentation (`?plot_processed`).
 
 #### Figure 1G
 
@@ -229,10 +229,10 @@ Using the final processed object as input, a number of the manuscript figure pan
 plot_processed(object = final.output, figure = "1G", save = F, save.dir = ".")
 ```
 
-#### Figure 1H
+#### Figure 2B
 
-```{r figure_1h, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
-plot_processed(object = final.output, figure = "1H", save = F, save.dir = ".")
+```{r figure_2b, fig.align='center', fig.height=8, fig.width=8, out.height="60%", out.width="60%"}
+plot_processed(object = final.output, figure = "2B", save = F, save.dir = ".")
 ```
 
 #### Figure 2C
