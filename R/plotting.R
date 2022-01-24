@@ -418,11 +418,11 @@ plot_processed <- function(object=NULL, figure=NA, save=FALSE, save.dir="."){
       rel_heights = c(0.1, 1)
     )
 
-    plot <- cowplot::plot_grid(plotlist = list(plot.IL22RA1.fin,plot.IL10RB.fin), nrow=1)
+    plot <- cowplot::plot_grid(plotlist = list(plot.IL22RA1.fin,plot.IL10RB.fin), nrow=2)
 
 
     if (save == TRUE){
-      ggplot2::ggsave(plot=plot, file = paste0(save.dir,"/Figure_S7A.pdf"), width = 10, height = 4)
+      ggplot2::ggsave(plot=plot, file = paste0(save.dir,"/Figure_S7A.pdf"), width = 10, height = 10)
     }
     #Draw final plot
     return(plot)
