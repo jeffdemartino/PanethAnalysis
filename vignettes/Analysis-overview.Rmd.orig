@@ -314,12 +314,12 @@ slingshot.output <- model_slingshot(data = diffusion.output)
 
 #### 3.2.1 Output figure plots {.tabset}
 
-The outputs from `model_diffusion()` and `model_slingshot()` can be used to re-produce the relevant figure panels using the `plot_trajectory()` function. The accepted figure IDs are: "**S3B**" and "**ED_4C**"; a description of each panel can be found in the function documentation (`?plot_trajectory`). As with the other plotting functions, the generated plots are sent to the active graphics device by default for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
+The outputs from `model_diffusion()` and `model_slingshot()` can be used to re-produce the relevant figure panels using the `plot_trajectory()` function. The accepted figure IDs are: "**ED_4B**" and "**ED_4C**"; a description of each panel can be found in the function documentation (`?plot_trajectory`). As with the other plotting functions, the generated plots are sent to the active graphics device by default for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
 
-##### Figure S3B
+##### Extended data Figure 4B
 
-```{r figure_s3b, fig.align='center', fig.height=6, fig.width=12}
-plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "S3B", save = F, save.dir = ".")
+```{r ed_figure_4b, fig.align='center', fig.height=6, fig.width=12}
+plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output, figure = "ED_4B", save = F, save.dir = ".")
 ```
 
 ##### Extended data Figure 4C
