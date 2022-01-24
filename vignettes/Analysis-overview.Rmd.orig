@@ -283,12 +283,17 @@ il22.output.obj <- il22_response(data = final.output, output_dir = "./")
 
 #### 3.1.1 Output figure plots {.tabset}
 
-The output from `il22_response()` can be used to re-produce the relevant figure panels using the `plot_il22()` function. The accepted figure IDs are: "**2D**", "**ED_9A**" and "**ED_9B**"; a description of each panel can be found in the function documentation (`?plot_il22`). When re-producing figure 2D, the DGE analysis output file (full data set) from `il22_response()` ("*DE_IL22.txt"*) needs to be specified using `dge.output=`. As with the other plotting functions, the generated plots are sent by default to the active graphics device for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
+The output from `il22_response()` can be used to re-produce the relevant figure panels using the `plot_il22()` function. The accepted figure IDs are: "**2D**", "**3A**", "**ED_9A**" and "**ED_9B**"; a description of each panel can be found in the function documentation (`?plot_il22`). When re-producing figure 2D, the DGE analysis output file (full data set) from `il22_response()` ("*DE_IL22.txt"*) needs to be specified using `dge.output=`. As with the other plotting functions, the generated plots are sent by default to the active graphics device for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
 
 ##### Figure 2D
 
 ```{r figure_2d, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%"}
 plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
+```
+##### Figure 3A
+
+```{r figure_3A, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%"}
+plot_il22(object = il22.output.obj, figure = "3A", save = F, save.dir = ".")
 ```
 
 ##### Extended data Figure 9A
