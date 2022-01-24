@@ -436,7 +436,7 @@ plot_processed <- function(object=NULL, figure=NA, save=FALSE, save.dir="."){
 #'
 #' @details This function reproduces the following figure panels: \itemize{\item
 #'   \strong{Figure 2D}: Differential gene expression (MA) plot, IL22+ vs IL22-
-#'   \item \strong{Figure S7B}: Violin plots depicting the IL22-response module
+#'   \item \strong{Extended Data Figure 9A}: Violin plots depicting the IL22-response module
 #'   score between cells cultured in IL22+ and IL22- media (overall and per
 #'   cluster) \item \strong{Extended Data Figure 9B}: Violin plots depicting normalized gene
 #'   expression of REG1A, REG1B, DMBT1, CFI, MUC1, DEFA6 and ITLN2 between cells cultured in IL22+ and
@@ -460,12 +460,12 @@ plot_processed <- function(object=NULL, figure=NA, save=FALSE, save.dir="."){
 #' # Make each plot and save as pdf
 #' plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt",
 #'           save = T, save.dir = ".")
-#' plot_il22(object = il22.output.obj, figure = "S7B",  save = T, save.dir = ".")
+#' plot_il22(object = il22.output.obj, figure = "ED_9A",  save = T, save.dir = ".")
 #' plot_il22(object = il22.output.obj, figure = "ED_9B",  save = T, save.dir = ".")}
 plot_il22 <- function(object=NULL, dge.output=NA, figure=NA, save=FALSE, save.dir="."){
 
   # Check inputs
-  accept.figs <- c("2D","S7B","S7D")
+  accept.figs <- c("2D","ED_9A","ED_9B")
 
   if (is.na(figure)){
     stop("Please specify a figure to plot")
@@ -522,8 +522,8 @@ plot_il22 <- function(object=NULL, dge.output=NA, figure=NA, save=FALSE, save.di
 
   }
 
-  # Plot Figure S7B
-  if (figure == "S7B"){
+  # Plot Figure ED_9A
+  if (figure == "ED_9A"){
     data <- Seurat::FetchData(object, c("IL22_Module","condition","Final.IDS"))
 
     data$condition <- factor(data$condition, levels = c("IL22+" , "IL22-"))
@@ -567,7 +567,7 @@ plot_il22 <- function(object=NULL, dge.output=NA, figure=NA, save=FALSE, save.di
       ggplot2::labs(fill = "Condition")
 
     if (save == TRUE){
-      ggplot2::ggsave(plot=plot, file = paste0(save.dir,"/Figure_S7B.pdf"), width = 12, height = 6)
+      ggplot2::ggsave(plot=plot, file = paste0(save.dir,"/Extended_Data_Fig_9A.pdf"), width = 12, height = 6)
     }
     return(suppressWarnings(cowplot::plot_grid(plotlist = list(plot1,plot2), align = "h", rel_widths = c(1,4))))
   }

@@ -289,7 +289,7 @@ il22.output.obj <- il22_response(data = final.output, output_dir = "./")
 
 #### 3.1.1 Output figure plots {.tabset}
 
-The output from `il22_response()` can be used to re-produce the relevant figure panels using the `plot_il22()` function. The accepted figure IDs are: "**2D**", "**S7B**" and "**ED_9B**"; a description of each panel can be found in the function documentation (`?plot_il22`). When re-producing figure 2D, the DGE analysis output file (full data set) from `il22_response()` ("*DE_IL22.txt"*) needs to be specified using `dge.output=`. As with the other plotting functions, the generated plots are sent by default to the active graphics device for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
+The output from `il22_response()` can be used to re-produce the relevant figure panels using the `plot_il22()` function. The accepted figure IDs are: "**2D**", "**ED_9A**" and "**ED_9B**"; a description of each panel can be found in the function documentation (`?plot_il22`). When re-producing figure 2D, the DGE analysis output file (full data set) from `il22_response()` ("*DE_IL22.txt"*) needs to be specified using `dge.output=`. As with the other plotting functions, the generated plots are sent by default to the active graphics device for visualization, but can also be saved as pdf files by specifying `save = TRUE` and giving the path to the desired output directory using `save.dir=` (defaults to ".").
 
 ##### Figure 2D
 
@@ -297,15 +297,15 @@ The output from `il22_response()` can be used to re-produce the relevant figure 
 plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
 ```
 
-##### Figure S7B
+##### Extended data Figure 9A
 
-```{r figure_s7b, fig.align='center', fig.height=6, fig.width=12,warning=FALSE}
-plot_il22(object = il22.output.obj, figure = "S7B",  save = F, save.dir = ".")
+```{r figure_ed_9a, fig.align='center', fig.height=6, fig.width=12,warning=FALSE}
+plot_il22(object = il22.output.obj, figure = "ED_9A",  save = F, save.dir = ".")
 ```
 
 ##### Extended data Figure 9B
 
-```{r figure_s7d, fig.align='center', fig.height=7.2, fig.width=12, out.height="80%", out.width="80%", warning=FALSE, message=FALSE}
+```{r figure_ed_9b, fig.align='center', fig.height=7.2, fig.width=12, out.height="80%", out.width="80%", warning=FALSE, message=FALSE}
 plot_il22(object = il22.output.obj, figure = "ED_9B",  save = F, save.dir = ".")
 ```
 
@@ -365,7 +365,7 @@ scv.pl.velocity_embedding_grid(adata, basis="umap",color="Final.IDS",arrow_size=
                                size=35,title="",save="Extended_Data_Fig_4a.pdf")
 ```
 
-#### Figure S3A
+#### Extended data Figure 4A
 
 <center>
 
