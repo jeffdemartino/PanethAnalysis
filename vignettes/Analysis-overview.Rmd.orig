@@ -197,13 +197,16 @@ rm(step2.output); gc(verbose=FALSE)
 
 #### 2.3.1 Dimensional reduction and graph-based clustering
 
-First, we perform 2 dimensional reduction steps, followed by graph-based clustering. The specific steps include:
+First, we perform 2 dimensional reduction steps, followed by graph-based clustering and differential gene expression analysis to define cluster-specific markers. The specific steps include:
 
 1.  Running principal component analysis (PCA) on the integrated data by calling the function `Seurat::RunPCA()`, using the default parameters
 
 2.  Performing uniform manifold approximation and projection (UMAP), using the first 25 integrated principal components as input, by calling `Seurat::RunUMAP()`
 
 3.  Computing a (shared) nearest-neighbor graph by calling `Seurat::FindNeighbors()`, also using the first 25 integrated principal components as input, and clustering the output by calling `Seurat::FindClusters()` (resolution=0.8, Leiden algorithm).
+
+4. Performing differential gene expression analysis between the clusters defined in the previous step by calling `Seurat::FindAllMarkers` (only.pos = T, logfc.threshold = 0.5). Results are written in the defined `output.dir` as "DE_perCluster.txt"
+
 
 #### 2.3.2 Cell-cycle scoring
 
@@ -213,7 +216,7 @@ Next, we infer the cell-cycle phase of each single cell by calling `Seurat::Cell
 
 #### 2.3.3 Cluster annotation
 
-Finally, we assign each cluster to a known cell type. In nearly all cases, this was done through manual examination of differential gene expression analysis <!--# Add the results as output? --> per cluster. The exceptions to this are detailed below:
+Finally, we assign each cluster to a known cell type. In nearly all cases, this was done through manual examination of differential gene expression analysis per cluster. The exceptions to this are detailed below:
 
 -   Mature Paneth and goblet cells (derived from a common progenitor) clustered together. Therefore, in order to distinguish the 2 cell types, we calculated a module score using Paneth-specific marker genes (DEFA5, DEFA6, PLA2G2A, PRSS2, REG3A and ITLN2) and classified cells with a score \> 1.5 as Paneth cells.
 
