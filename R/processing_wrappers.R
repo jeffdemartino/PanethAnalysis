@@ -148,7 +148,7 @@ integrate_data <- function(data=NULL){
 #' \enumerate{\item Performs PCA by calling \code{\link[Seurat]{RunPCA}}
 #' \item Runs UMAP using the first 25 principal components (see \code{\link[Seurat]{RunUMAP}})
 #' \item Performs graph-based clustering by calling \code{\link[Seurat]{FindNeighbors}} (using the first 25 principal components) and \code{\link[Seurat]{FindClusters}} (resolution of 0.8, Leiden algorithm)
-#' \item Calls \code{\link[Seurat]{FindAllMarkers}} to perform differential gene expression analysis between the clusters defined in the previous step (only.pos = T, logfc.threshold = 0.5). Results are written in the directory specified by \code{output.dir} as "DE_perCluster.txt"
+#' \item Calls \code{\link[Seurat]{FindAllMarkers}} to perform differential gene expression analysis between the clusters defined in the previous step (only.pos = T, logfc.threshold = 0.5). Results are written in the directory specified by \code{output.dir} as "DE_perCluster.txt" (Supplemental Table 2)
 #' \item Runs \code{\link[Seurat]{CellCycleScoring}} to infer cell cycle phase of each cell (relies on genes stored in \code{\link{cc_genes}})
 #' \item Score cells for the Paneth cell marker gene module (DEFA5, DEFA6, PLA2G2A, PRSS2, REG3A and ITLN2)
 #' \item Renames clusters according to manual annotations
