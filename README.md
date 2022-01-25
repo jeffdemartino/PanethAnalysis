@@ -32,7 +32,7 @@ PanethAnalysis:
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install(c("DelayedMatrixStats", "limma", "destiny", "slingshot"))
+BiocManager::install(c("DelayedMatrixStats", "limma", "destiny", "slingshot", "clusterProfiler", "org.Hs.eg.db"))
 
 # Github: SeuratWrappers
 if (!requireNamespace("devtools", quietly = TRUE))
