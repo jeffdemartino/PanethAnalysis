@@ -26,7 +26,7 @@ options(rmarkdown.html_vignette.check_title = FALSE) # Removed "-" from title in
 
 ## Preface
 
-This vignette is a tutorial on how to reproduce the single-cell RNA-sequencing analysis described in *He and Lin, et al., 2022* [***(link when available)***]{.ul} using the code and data contained in this R package. Please note, the purpose of these functions is to perform the analysis exactly as published, and they have therefore been coded **very rigidly**. As with any other R package, it can be loaded using the `library()` function:
+This vignette is a tutorial on how to reproduce the single-cell RNA-sequencing analysis described in *Optimized human intestinal organoid model reveals interleukin-22-dependency of Paneth cell formation* [***(link when available)***]{.ul} using the code and data contained in this R package. Please note, the purpose of these functions is to perform the analysis exactly as published, and they have therefore been coded **very rigidly**. As with any other R package, it can be loaded using the `library()` function:
 
 ```{r setup}
 library(PanethAnalysis)
@@ -205,7 +205,7 @@ First, we perform 2 dimensional reduction steps, followed by graph-based cluster
 
 3.  Computing a (shared) nearest-neighbor graph by calling `Seurat::FindNeighbors()`, also using the first 25 integrated principal components as input, and clustering the output by calling `Seurat::FindClusters()` (resolution=0.8, Leiden algorithm).
 
-4. Performing differential gene expression analysis between the clusters defined in the previous step by calling `Seurat::FindAllMarkers` (only.pos = T, logfc.threshold = 0.5). Results are written in the defined `output.dir` as "DE_perCluster.txt"
+4. Performing differential gene expression analysis between the clusters defined in the previous step by calling `Seurat::FindAllMarkers` (only.pos = T, logfc.threshold = 0.5). Results are written in the defined `output.dir` as "DE_perCluster.txt" (this corresponds to Supplementary Table 2)
 
 
 #### 2.3.2 Cell-cycle scoring
@@ -264,13 +264,13 @@ plot_processed(object = final.output, figure = "ED_4D", save = F, save.dir = "."
 
 #### Extended data Figure 4E
 
-```{r figure_ed_4e, fig.align='center', fig.height=10, fig.width=4}
+```{r figure_ed_4e, fig.align='center', fig.height=10, fig.width=7.7, out.height="50%", out.width="50%"}
 plot_processed(object = final.output, figure = "ED_4E", save = F, save.dir = ".")
 ```
 
 #### Extended data Figure 8B
 
-```{r figure_ed_8b, fig.align='center', fig.height=3, fig.width=12}
+```{r figure_ed_8b, fig.align='center', fig.height=10, fig.width=10, out.height="70%", out.width="70%"}
 plot_processed(object = final.output, figure = "ED_8B", save = F, save.dir = ".")
 ```
 
@@ -282,7 +282,7 @@ The output from the data processing and clustering pipeline is used as the input
 
 The steps required to reproduce the analysis and figure panels related to the IL22 response are wrapped in the function `il22_response()`. This function takes the processed Seurat object as input, and returns the same Seurat object with an IL22 induced module score included in the metadata, as well as saving the results of the differential gene-expression (DGE) analyses to disk. The function performs 2 main steps:
 
-1.  Runs the differential gene expression analysis, comparing IL22+ vs IL22- cells across the entire data set, as well as per cell-type cluster. This is done by calling the `Seurat::FindMarkers()` function (Wilcoxon rank sum test). The output from each DGE analysis is saved to disk as "*DE_IL22.txt"* and "*DE_IL22_perCluster.txt"*, respectively (path can be specified using `il22_response(…, output_dir="./")`). **NOTE**: DGE analysis is time consuming and can take between 5 and 10 minutes to complete
+1.  Runs the differential gene expression analysis, comparing IL22+ vs IL22- cells across the entire data set, as well as per cell-type cluster. This is done by calling the `Seurat::FindMarkers()` function (Wilcoxon rank sum test). The output from each DGE analysis is saved to disk as "*DE_IL22.txt"* (corresponds to Supplementary Table 3) and "*DE_IL22_perCluster.txt"*, respectively (path can be specified using `il22_response(…, output_dir="./")`). **NOTE**: DGE analysis is time consuming and can take between 5 and 10 minutes to complete
 
 2.  Calculates an IL22 induced module score using the top 50 up-regulated genes in the IL22+ condition (based on average log2 fold-change dataset-wide). This is stored in the output Seurat object's metadata slot under *"IL22_Module"* .
 
@@ -299,16 +299,17 @@ The output from `il22_response()` can be used to re-produce the relevant figure 
 ```{r figure_2d, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%"}
 plot_il22(object = il22.output.obj, figure = "2D", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
 ```
+
 ##### Figure 3A
 
-```{r figure_3A, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%"}
+```{r figure_3A, fig.align='center', fig.height=6, fig.width=8, out.height="70%", out.width="70%", warning=FALSE, message = FALSE}
 plot_il22(object = il22.output.obj, figure = "3A", save = F, save.dir = ".")
 ```
 
 ##### Extended data Figure 8A
 
-```{r figure_ed_8a, fig.align='center', fig.height=6, fig.width=12,warning=FALSE}
-plot_il22(object = il22.output.obj, figure = "ED_8A",  save = F, save.dir = ".")
+```{r figure_ed_8a, fig.align='center', fig.height=6, fig.width=12,warning=FALSE, message = FALSE}
+plot_il22(object = il22.output.obj, figure = "ED_8A", dge.output = "DE_IL22.txt", save = F, save.dir = ".")
 ```
 
 ##### Extended data Figure 9A
@@ -319,7 +320,7 @@ plot_il22(object = il22.output.obj, figure = "ED_9A",  save = F, save.dir = ".")
 
 ##### Extended data Figure 9B
 
-```{r figure_ed_9b, fig.align='center', fig.height=7.2, fig.width=12, out.height="80%", out.width="80%", warning=FALSE, message=FALSE}
+```{r figure_ed_9b, fig.align='center', fig.height=12, fig.width=12, out.height="70%", out.width="70%", warning=FALSE, message=FALSE}
 plot_il22(object = il22.output.obj, figure = "ED_9B",  save = F, save.dir = ".")
 ```
 
