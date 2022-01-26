@@ -37,7 +37,9 @@ Imports:
     tibble,
     viridis,
     leiden (>= 0.3.1),
-    DelayedMatrixStats
+    DelayedMatrixStats,
+    clusterProfiler,
+    org.Hs.eg.db
 Suggests: 
     knitr,
     limma

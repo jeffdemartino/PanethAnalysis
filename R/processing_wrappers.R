@@ -141,11 +141,14 @@ integrate_data <- function(data=NULL){
 #'
 #' @param data The output from \code{\link{integrate_data}} which can
 #'   be directly fed in using the pipe operator \code{\%>\%}
+#' @param output.dir Path to directory where DGE output should be saved
+#'   (default is ".")
 #'
 #' @details This function runs the following data processing steps:
 #' \enumerate{\item Performs PCA by calling \code{\link[Seurat]{RunPCA}}
 #' \item Runs UMAP using the first 25 principal components (see \code{\link[Seurat]{RunUMAP}})
 #' \item Performs graph-based clustering by calling \code{\link[Seurat]{FindNeighbors}} (using the first 25 principal components) and \code{\link[Seurat]{FindClusters}} (resolution of 0.8, Leiden algorithm)
+#' \item Calls \code{\link[Seurat]{FindAllMarkers}} to perform differential gene expression analysis between the clusters defined in the previous step (only.pos = T, logfc.threshold = 0.5). Results are written in the directory specified by \code{output.dir} as "DE_perCluster.txt" (Supplemental Table 2)
 #' \item Runs \code{\link[Seurat]{CellCycleScoring}} to infer cell cycle phase of each cell (relies on genes stored in \code{\link{cc_genes}})
 #' \item Score cells for the Paneth cell marker gene module (DEFA5, DEFA6, PLA2G2A, PRSS2, REG3A and ITLN2)
 #' \item Renames clusters according to manual annotations
@@ -159,7 +162,7 @@ integrate_data <- function(data=NULL){
 #' @examples
 #' \dontrun{
 #' preprocess_data() %>% integrate_data() %>% process_data()}
-process_data <- function(data=NULL){
+process_data <- function(data=NULL, output.dir = "."){
 
   # Run dimensional reduction (PCA then UMAP)
   umap_pcs <- 1:25
@@ -169,9 +172,11 @@ process_data <- function(data=NULL){
   srat <- suppressWarnings(RunUMAP(srat, reduction = "pca", dims = umap_pcs, verbose=F))
 
   # Run graph-based clustering
-  message("Running graph-based clustering...")
+  message("Running graph-based clustering and DGE...")
   srat <- Seurat::FindNeighbors(srat, reduction = "pca", dims = umap_pcs, verbose=F)
   srat <- Seurat::FindClusters(srat, resolution = 0.8, graph.name = "integrated_snn",algorithm = 4)
+
+  dge <- Seurat::FindAllMarkers(srat, only.pos = T, logfc.threshold = 0.5, verbose = F)
 
   Seurat::DefaultAssay(srat) <- "SCT"
 
@@ -191,10 +196,18 @@ process_data <- function(data=NULL){
 
   # Rename clusters
   Seurat::Idents(srat) <- "integrated_snn_res.0.8"
+
   new.ids <- plyr::mapvalues(Idents(srat), from = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
                        to = c("Early EC", "EC", "EC", "TA2", "ISC", "Goblet", "TA1", "TA1", "Secretory progenitor", "TA1", "TA1", "EEC"))
 
   Seurat::Idents(srat) <- new.ids
+
+  # Export DGE with final IDs appended
+  dge <- cbind.data.frame(dge, cell_type = plyr::mapvalues(dge$cluster, from = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+                                                    to = c("Early EC", "EC", "EC", "TA2", "ISC", "Goblet",
+                                                           "TA1", "TA1", "Secretory progenitor", "TA1", "TA1", "EEC")))
+  rownames(dge) <- NULL
+  write.table(dge, paste0(output_dir,"/DE_perCluster.txt"), quote = F, row.names = F)
 
   # Select tuft cells (AVIL expressing)
   srat <- Seurat::FindSubCluster(srat, cluster = "Secretory progenitor", resolution = 1, algorithm = 4, graph.name = "integrated_snn")

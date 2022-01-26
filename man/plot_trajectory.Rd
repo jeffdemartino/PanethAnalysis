@@ -19,8 +19,8 @@ plot_trajectory(
 \item{slingshot.obj}{The list of slingshot objects (per trajectory) generated
 by \code{\link{model_slingshot}}}
 
-\item{figure}{ID of the figure to be reproduced. Accepted values are "S3B"
-and "S3C" (See Details for description of figure panels)}
+\item{figure}{ID of the figure to be reproduced. Accepted values are "ED_4B"
+and "ED_4C" (See Details for description of figure panels)}
 
 \item{save}{Save the specified plot as a pdf? (default = FALSE)}
 
@@ -35,16 +35,16 @@ Reproduces figure panels related to differentiation trajectory modelling
 }
 \details{
 This function reproduces the following figure panels: \itemize{\item
-\strong{Figure S3B}: DiffusionMaps projection of the stem cell trajectory,
-colored by cell-type cluster and cell-cycle phase \item \strong{Figure
-S3C}: DiffusionMaps projections of the enterocyte, secretory and Paneth
+\strong{Extended data Figure 4B}: DiffusionMaps projection of the stem cell trajectory,
+colored by cell-type cluster and cell-cycle phase \item \strong{Extended data Figure
+4C}: DiffusionMaps projections of the enterocyte, secretory and Paneth
 cell trajectories, colored by cell-type cluster}
 }
 \examples{
 \dontrun{
 # Make each plot and save as pdf
 plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
-                figure = "S3B", save = T, save.dir = ".")
+                figure = "ED_4B", save = T, save.dir = ".")
 plot_trajectory(seurat.obj = diffusion.output, slingshot.obj = slingshot.output,
-                figure = "S3C", save = T, save.dir = ".")}
+                figure = "ED_4C", save = T, save.dir = ".")}
 }

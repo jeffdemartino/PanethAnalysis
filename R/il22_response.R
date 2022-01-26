@@ -8,7 +8,7 @@
 #'   (default is "./")
 #' @details This function first runs differential expression analysis between
 #'   IL22+ and IL22- cells by calling the \code{\link[Seurat]{FindMarkers}}
-#'   function (Wilcoxon Rank Sum test), and saves the output. The top 50 genes
+#'   function (Wilcoxon Rank Sum test), and saves the output (Supplemental Table 3). The top 50 genes
 #'   (by Avg Log2FC) up-regulated in IL22+ cells are then used to calculate an
 #'   IL22-response module score. Finally, the differential gene expression
 #'   analysis between IL22+ and IL22- cells is repeated independently for each
@@ -18,7 +18,7 @@
 #'   score added to the metadata \code{col.name = "IL22_Module"}. Additionally,
 #'   2 output files are saved to the specified output directory: \itemize{\item
 #'   "DE_IL22.txt" is a table containing the IL22+ vs IL22- differential
-#'   expression results \item "DE_IL22_perCluster.txt" is a table containing the
+#'   expression results (Supplemental Table 3) \item "DE_IL22_perCluster.txt" is a table containing the
 #'   IL22+ vs IL22- differential expression results \strong{PER CLUSTER}}
 #' @export
 #' @concept analysis
