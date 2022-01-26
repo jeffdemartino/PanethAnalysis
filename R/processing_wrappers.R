@@ -207,7 +207,7 @@ process_data <- function(data=NULL, output.dir = "."){
                                                     to = c("Early EC", "EC", "EC", "TA2", "ISC", "Goblet",
                                                            "TA1", "TA1", "Secretory progenitor", "TA1", "TA1", "EEC")))
   rownames(dge) <- NULL
-  write.table(dge, paste0(output_dir,"/DE_perCluster.txt"), quote = F, row.names = F)
+  write.table(dge, paste0(output.dir,"/DE_perCluster.txt"), quote = F, row.names = F)
 
   # Select tuft cells (AVIL expressing)
   srat <- Seurat::FindSubCluster(srat, cluster = "Secretory progenitor", resolution = 1, algorithm = 4, graph.name = "integrated_snn")
