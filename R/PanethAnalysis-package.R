@@ -6,6 +6,7 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr select
+#' @importFrom enrichplot dotplot
 #' @importFrom Hmisc cut2
 #' @importFrom magrittr %>%
 #' @importFrom Matrix colSums
