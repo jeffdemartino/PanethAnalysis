@@ -16,9 +16,7 @@ date)](https://img.shields.io/github/v/tag/jeffdemartino/PanethAnalysis)
 <!-- badges: end -->
 
 The `PanethAnalysis` package provides the data and wrapper functions
-required to reproduce the analyses from our publication “Optimal human
-intestinal organoid model reveals interleukin-22 induced Paneth cell
-differentiation”.
+required to reproduce the analyses from our publication “Optimized human intestinal organoid model reveals interleukin-22-dependency of paneth cell formation”.
 
 ## Installation
 
