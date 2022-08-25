@@ -53,7 +53,7 @@ intensive steps have been pre-computed (see
 [here](https://ropensci.org/blog/2019/12/08/precompute-vignettes/) for
 more details on how to replicate this).
 
-As of this version (v0.1.0), all the required data sets are bundled in
+As of this version (v0.2.0), all the required data sets are bundled in
 this package (&gt;200MB). This may change in the future when the data is
 made publicly available post-publication.
 
