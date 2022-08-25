@@ -66,4 +66,4 @@ file.
 
 ## Citation
 
-XXX
+He GW, Lin L, DeMartino J, Zheng X et al. Optimized human intestinal organoid model reveals interleukin-22-dependency of paneth cell formation. Cell Stem Cell 2022 Aug 19. PMID: [36002022](https://www.ncbi.nlm.nih.gov/pubmed/36002022 "Link to PubMed record")
