@@ -52,7 +52,7 @@ devtools::install_github("jeffdemartino/PanethAnalysis", build_vignettes = TRUE)
 
 Be sure to build the vignette upon installation (by invoking `build_vignettes = TRUE`, as shown above) so the usage guide is made available. Note that for the sake of convenience, the time/memory intensive steps have been pre-computed (see [here](https://ropensci.org/blog/2019/12/08/precompute-vignettes/) for more details on how to replicate this).
 
-As of this version (v0.1.0), all the required data sets are bundled in this package (\>200MB). This may change in the future when the data is made publicly available post-publication.
+As of this version (v0.2.0), all the required data sets are bundled in this package (\>200MB). This may change in the future when the data is made publicly available post-publication.
 
 ## Usage
 
